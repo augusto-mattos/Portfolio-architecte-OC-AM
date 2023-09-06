@@ -66,26 +66,44 @@ async function fetchAndShowCategory() {
   }
 }
 
-/* Cette fontion manipule le DOM pour créer les boutons qui serviront des filtres par categorie. La boucle for parcourt les données obtenues et créer les éléments html pour chaque index identifié dans l'array */
+/* Cette fontion manipule le DOM pour créer les boutons qui serviront des filtres par categorie. La boucle for parcourt les données obtenues et créer les éléments html pour chaque index identifié dans l'array. Dans la boucle il y a aussi les eventListeners qui suppriment ou ajoutent une classe aux boutons */
 function createFilters(categories) {
   const filtersContainer = document.querySelector(".filters");
 
-  const filterAll = document.createElement("button");
-  filterAll.innerText = "Tous";
-  filterAll.classList.add("selected");
-  filtersContainer.appendChild(filterAll);
+  const buttonAll = document.createElement("button");
+  buttonAll.innerText = "Tous";
+  buttonAll.classList.add("filter-button");
+  buttonAll.classList.add("selected");
+  filtersContainer.appendChild(buttonAll);
 
   for (let c = 0; c < categories.length; c++) {
-    const button = categories[c];
+    const category = categories[c];
 
     const buttonFilters = document.createElement("button");
-    buttonFilters.dataset.id = button.id;
-    buttonFilters.innerText = button.name;
+    buttonFilters.dataset.id = category.id;
+    buttonFilters.innerText = category.name;
     buttonFilters.classList.add("filter-button");
     filtersContainer.appendChild(buttonFilters);
+
+    buttonFilters.addEventListener("click", () => {
+      resetFilters();
+      buttonFilters.classList.add("selected");
+    });
+
+    buttonAll.addEventListener("click", () => {
+      resetFilters();
+      buttonAll.classList.add("selected");
+    });
   }
 }
 
 /* Ici la fonction principale est appelée pour afficher les éléments sur la page */
 fetchAndShowCategory(createFilters);
 /*********************************************************************************************************/
+
+function resetFilters() {
+  const filters = document.querySelectorAll(".filter-button");
+  filters.forEach((f) => f.classList.remove("selected"));
+}
+
+resetFilters();
