@@ -209,6 +209,7 @@ li:hover {
   display: flex;
   justify-content: center;
 }
+
 #portfolio button {
   font-family: "Syne";
   font-weight: 700;
@@ -225,6 +226,10 @@ li:hover {
 #portfolio .selected {
   color: white;
   background-color: #1d6154;
+}
+
+.d-none {
+  display: none;
 }
 
 .gallery {
