@@ -228,6 +228,10 @@ li:hover {
   background-color: #1d6154;
 }
 
+.d-none {
+  display: none;
+}
+
 .gallery {
   width: 100%;
   display: grid;
