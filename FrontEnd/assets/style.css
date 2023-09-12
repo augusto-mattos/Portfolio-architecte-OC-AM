@@ -107,9 +107,6 @@ section {
 }
 body {
   line-height: 1;
-  font-family: "Work Sans";
-  font-size: 14px;
-  color: #3d3d3d;
 }
 ol,
 ul {
@@ -131,6 +128,11 @@ table {
   border-spacing: 0;
 }
 /** end reset css**/
+body {
+  font-family: "Work Sans";
+  font-size: 14px;
+  color: #3d3d3d;
+}
 .main-container {
   max-width: 1140px;
   margin: auto;
@@ -391,7 +393,7 @@ footer nav ul {
   justify-content: center;
 }
 
-#portfolio-edition .btn-edtion {
+#portfolio-edition .btn-edition {
   font-family: "Work Sans";
   font-weight: 400;
   font-size: 14px;
@@ -404,8 +406,37 @@ footer nav ul {
   text-align: center;
   gap: 13px;
   cursor: pointer;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 
-.btn-edtion img {
+.btn-edition img {
   max-height: 16px;
+}
+
+.body-opacity {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.3);
+}
+
+.modal {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  top: 70%;
+  width: 630px;
+  height: 688px;
+  background-color: grey;
+  border-radius: 10px;
+  z-index: 1;
+}
+
+.modal .close {
+  width: 24px;
+    height: 24px;
+    position: relative;
+    padding: 26px 30px;
+    left: 44%;
 }
