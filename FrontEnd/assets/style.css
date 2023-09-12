@@ -393,7 +393,7 @@ footer nav ul {
   justify-content: center;
 }
 
-#portfolio-edition .btn-edition {
+#portfolio-edition .edition-btn {
   font-family: "Work Sans";
   font-weight: 400;
   font-size: 14px;
@@ -409,7 +409,7 @@ footer nav ul {
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 
-.btn-edition img {
+.edition-btn img {
   max-height: 16px;
 }
 
@@ -428,15 +428,15 @@ footer nav ul {
   top: 70%;
   width: 630px;
   height: 688px;
-  background-color: grey;
+  background-color: white;
   border-radius: 10px;
   z-index: 1;
 }
 
-.modal .close {
+.modal .close-btn {
   width: 24px;
-    height: 24px;
-    position: relative;
-    padding: 26px 30px;
-    left: 44%;
+  height: 24px;
+  position: relative;
+  padding: 26px 30px;
+  left: 44%;
 }
