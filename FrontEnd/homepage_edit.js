@@ -69,7 +69,7 @@ function createModal(works) {
     worksInModal.appendChild(figureWorks);
 
     const workImg = document.createElement("img");
-    workImg.classList.add("work-miniature")
+    workImg.classList.add("work-miniature");
     workImg.src = figure.imageUrl;
     workImg.id = "work-" + figure.id;
     figureWorks.appendChild(workImg);
@@ -82,7 +82,6 @@ function createModal(works) {
     delIcon.classList.add("del-icon");
     delIcon.src = "./assets/icons/trash-can-solid.svg";
     delWork.appendChild(delIcon);
-
   }
 }
 
