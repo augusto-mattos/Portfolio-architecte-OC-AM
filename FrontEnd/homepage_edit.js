@@ -46,8 +46,6 @@ function openModal() {
   const bodyOpacity = document.createElement("div");
   bodyOpacity.classList.add("body-opacity");
   body.appendChild(bodyOpacity);
-
-  createModal();
 }
 
 /* Création de la modale */
@@ -71,9 +69,19 @@ function createModal(works) {
     worksInModal.appendChild(figureWorks);
 
     const workImg = document.createElement("img");
+    workImg.classList.add("work-miniature");
     workImg.src = figure.imageUrl;
     workImg.id = "work-" + figure.id;
     figureWorks.appendChild(workImg);
+
+    const delWork = document.createElement("button");
+    delWork.classList.add("del-btn");
+    figureWorks.appendChild(delWork);
+
+    const delIcon = document.createElement("img");
+    delIcon.classList.add("del-icon");
+    delIcon.src = "./assets/icons/trash-can-solid.svg";
+    delWork.appendChild(delIcon);
   }
 }
 
