@@ -10,8 +10,17 @@ logoutButton.addEventListener("click", function (event) {
   event.preventDefault();
   logout();
 });
-/*****************************************************************/
 
+/* VERIFICATION DE LOGIN */
+function forceAuthentication() {
+  const userData = window.localStorage.getItem("userData");
+
+  if (userData === null) {
+    window.location.href = "./login.html";
+  }
+}
+
+forceAuthentication();
 /*****************************************************************/
 
 /* MODAL */
@@ -19,6 +28,15 @@ logoutButton.addEventListener("click", function (event) {
 const openModalButton = document.querySelector(".edition-btn");
 openModalButton.addEventListener("click", function (event) {
   event.preventDefault();
+
+  const modal = document.querySelector(".d-none");
+
+  if (modal) {
+    modal.classList.add("modal");
+    modal.classList.remove("d-none");
+    modal.removeAttribute("aria-hidden");
+  }
+
   openModal();
 });
 
@@ -33,36 +51,53 @@ function openModal() {
 }
 
 /* Création de la modale */
-function createModal() {
-    const modal = document.getElementById("portfolio-edition");
-  
-    const createModal = document.createElement("aside");
-    createModal.classList.add("modal");
-    modal.appendChild(createModal);
-  
-    const closeModalButton = document.createElement("img");
-    closeModalButton.classList.add("close-btn");
-    closeModalButton.src = "./assets/icons/close_button.svg";
-    closeModalButton.addEventListener("click", function () {
-      closeModal();
-    });
-    createModal.appendChild(closeModalButton);
+async function fetchAndShowWorksInAModal() {
+  try {
+    const response = await fetch("http://localhost:5678/api/works");
+    const works = await response.json();
+    createModal(works);
+  } catch (error) {
+    console.error(error);
   }
+}
+
+function createModal(works) {
+  const worksInModal = document.querySelector(".works-modal");
+  for (let i = 0; i < works.length; i++) {
+    const figure = works[i];
+
+    const figureWorks = document.createElement("figure");
+    figureWorks.classList.add("category-" + figure.categoryId);
+    worksInModal.appendChild(figureWorks);
+
+    const workImg = document.createElement("img");
+    workImg.src = figure.imageUrl;
+    workImg.id = "work-" + figure.id;
+    figureWorks.appendChild(workImg);
+  }
+}
+
+fetchAndShowWorksInAModal(createModal);
 
 /* Fermeture de la modale  */
 function closeModal(event) {
-  if (
-    event.target.classList.contains("body-opacity") ||
-    event.target.classList.contains("close-btn")
-  ) {
-    const closedModal = document.querySelector(".body-opacity");
-    if (closedModal) {
-      closedModal.remove();
-    }
-    const closedModalBtn = document.querySelector(".modal");
-    if (closedModalBtn) {
-      closedModalBtn.remove();
-    }
+  const bodyOpacity = document.querySelector(".body-opacity");
+  const modal = document.querySelector(".modal");
+
+  const closeBtn = document.querySelector(".close-btn");
+  closeBtn.addEventListener("click", function () {
+    bodyOpacity.remove();
+    modal.classList.remove("modal");
+    modal.classList.add("d-none");
+    modal.setAttribute("aria-hidden", "true");
+  });
+
+  if (event.target.classList.contains("body-opacity")) {
+    bodyOpacity.remove();
+    modal.classList.remove("modal");
+    modal.classList.add("d-none");
+    modal.setAttribute("aria-hidden", "true");
   }
 }
+
 document.addEventListener("click", closeModal);

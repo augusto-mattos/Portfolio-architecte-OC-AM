@@ -22,6 +22,7 @@ function createGallery(works) {
 
     const workImg = document.createElement("img");
     workImg.src = figure.imageUrl;
+    workImg.id = "work-" + figure.id;
     figureWorks.appendChild(workImg);
 
     const figCaption = document.createElement("figcaption");
@@ -52,7 +53,7 @@ function createFilters(categories) {
   const buttonAll = document.createElement("button");
   buttonAll.innerText = "Tous";
   buttonAll.id = "all";
-  buttonAll.classList.add("selected");
+  buttonAll.classList.add("selected", "category-filter");
   filtersContainer.appendChild(buttonAll);
 
   for (let c = 0; c < categories.length; c++) {
@@ -60,6 +61,7 @@ function createFilters(categories) {
 
     const buttonFilters = document.createElement("button");
     buttonFilters.id = "category-" + category.id;
+    buttonFilters.classList.add("category-filter");
     buttonFilters.innerText = category.name;
     filtersContainer.appendChild(buttonFilters);
 

@@ -132,6 +132,7 @@ body {
   font-family: "Work Sans";
   font-size: 14px;
   color: #3d3d3d;
+  overflow-x : hidden
 }
 .main-container {
   max-width: 1140px;
@@ -225,7 +226,7 @@ li a:hover {
   justify-content: center;
 }
 
-#portfolio button {
+#portfolio .category-filter {
   font-family: "Syne";
   font-weight: 700;
   color: #1d6154;
@@ -361,7 +362,7 @@ footer nav ul {
   bottom: 0;
 }
 
-/* HOMEPAGE */
+/* HOMEPAGE EDITION */
 
 .gallery-homepage {
   margin-top: 85px;
@@ -422,10 +423,12 @@ footer nav ul {
 }
 
 .modal {
-  position: absolute;
+  position: fixed;
   display: flex;
-  justify-content: center;
-  top: 70%;
+  flex-direction: column;
+  gap: 10px;
+  padding: 26px 30px;
+  top: 100px;
   width: 630px;
   height: 688px;
   background-color: white;
@@ -433,10 +436,40 @@ footer nav ul {
   z-index: 1;
 }
 
-.modal .close-btn {
+.modal button {
+  background-color: white;
+  border: unset;
+  margin: 0;
+  position: relative;
+  align-self: flex-end;
+  top: 0;
   width: 24px;
   height: 24px;
-  position: relative;
-  padding: 26px 30px;
-  left: 44%;
+  cursor: pointer;
+}
+
+#portfolio h3 {
+  color: #000;
+  text-align: center;
+  font-family: Work Sans;
+  font-size: 26px;
+  line-height: normal;
+}
+
+.works-modal {
+  display: flex;
+  flex-flow: wrap;
+  justify-content: space-between;
+  row-gap: 29px;
+  margin: 47px 105px 99px 105px;
+}
+
+.works-modal img {
+  width: 76px;
+  height: 102px;
+}
+
+hr {
+    border: solid 1px #B3B3B3;
+    width: 420px;
 }
