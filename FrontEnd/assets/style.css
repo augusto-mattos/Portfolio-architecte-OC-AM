@@ -423,11 +423,11 @@ footer nav ul {
 }
 
 .modal {
-  position: fixed;
+  position: absolute;
   display: flex;
   flex-direction: column;
   gap: 10px;
-  padding: 26px 30px;
+  padding: 26px 30px 45px 30px;
   top: 100px;
   width: 630px;
   height: 688px;
@@ -461,15 +461,36 @@ footer nav ul {
   flex-flow: wrap;
   justify-content: space-between;
   row-gap: 29px;
-  margin: 47px 105px 99px 105px;
+  column-gap: 9px;
+  margin: 47px 70px 99px 70px;
 }
 
 .works-modal img {
-  width: 76px;
-  height: 102px;
+  width: 78px;
+  height: 103px;
 }
 
 hr {
     border: solid 1px #B3B3B3;
     width: 420px;
+}
+
+.modal .addPhoto-btn {
+  display: flex;
+  align-items: center;
+  align-self: center;
+  font-family: "Syne";
+  font-size: 14px;
+  font-weight: 700;
+  color: white;
+  background-color: #1d6154;
+  border: solid 1px #1d6154;
+  margin: 27px 0.625em;
+  width: fit-content;
+  padding: 18px 49px;
+  border-radius: 60px;  
+}
+
+.del-btn {
+  background-color: black;
 }
