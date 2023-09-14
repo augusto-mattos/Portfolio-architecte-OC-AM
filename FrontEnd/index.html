@@ -15,6 +15,9 @@
 </head>
 
 <body>
+	<div class="d-none" id="black-bar">
+		<img src="./assets/icons/edit_button.svg" alt="button d'édition"> Mode édition
+	</div>
 	<div class="main-container">
 		<header>
 			<h1>Sophie Bluel <span>Architecte d'inteérieur</span></h1>
@@ -26,8 +29,11 @@
 					<li>
 						<a href="#contact">contact</a>
 					</li>
-					<li>
+					<li id="login-btn">
 						<a href="/FrontEnd/login.html">login</a>
+					</li>
+					<li class="d-none" id="logout-btn">
+						<a href="/FrontEnd/index.html">logout</a>
 					</li>
 					<li><img src="./assets/icons/instagram.png" alt="Instagram"></li>
 				</ul>
@@ -51,7 +57,19 @@
 				</article>
 			</section>
 			<section id="portfolio">
-				<h2>Mes projets</h2>
+				<aside class="d-none" role="dialog" aria-labelledby="title-modal" aria-hidden="true">
+					<button id="close-btn" class="close-btn"><img src="./assets/icons/close_button.svg" alt="fermer la modale"></button>
+					<h3 id="title-modal">Galerie Photo</h3>
+					<div class="works-modal"></div>
+					<hr>
+					<button class="addPhoto-btn">Ajouter une photo</button>
+				</aside>
+				<div class="toolbar">
+					<h2>Mes projets</h2>
+					<button id="edition-btn" class="d-none">
+						<img src="./assets/icons/edit_button.svg" alt="button d'édition">modifier
+					</button>
+				</div>
 				<div class="filters"></div>
 				<div class="gallery"></div>
 			</section>

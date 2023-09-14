@@ -1,3 +1,5 @@
+const userData = window.localStorage.getItem("userData");
+
 /* Cette fonction fait une requette pour obtenir les données depuis l'API et affiche la fonction qui manipule le DOM. Le catch affichera un message en cas d'erreur */
 async function fetchAndShowWorks() {
   try {
@@ -49,35 +51,41 @@ async function fetchAndShowCategory() {
 /* Cette fontion manipule le DOM pour créer les boutons qui serviront des filtres par categorie. La boucle for parcourt les données obtenues et créer les éléments html pour chaque index identifié dans l'array. Dans la boucle il y a aussi les eventListeners qui suppriment ou ajoutent une classe aux boutons */
 function createFilters(categories) {
   const filtersContainer = document.querySelector(".filters");
+  
+  if (userData !== null) {
+    filtersContainer.classList.add("d-none");
+  } else {
 
-  const buttonAll = document.createElement("button");
-  buttonAll.innerText = "Tous";
-  buttonAll.id = "all";
-  buttonAll.classList.add("selected", "category-filter");
-  filtersContainer.appendChild(buttonAll);
-
-  for (let c = 0; c < categories.length; c++) {
-    const category = categories[c];
-
-    const buttonFilters = document.createElement("button");
-    buttonFilters.id = "category-" + category.id;
-    buttonFilters.classList.add("category-filter");
-    buttonFilters.innerText = category.name;
-    filtersContainer.appendChild(buttonFilters);
-
-    buttonFilters.addEventListener("click", () => {
-      resetFilters();
-      buttonFilters.classList.add("selected");
-      updateGallery();
-    });
-
-    buttonAll.addEventListener("click", () => {
-      resetFilters();
-      buttonAll.classList.add("selected");
-      updateGallery();
-    });
+    const buttonAll = document.createElement("button");
+    buttonAll.innerText = "Tous";
+    buttonAll.id = "all";
+    buttonAll.classList.add("selected", "category-filter");
+    filtersContainer.appendChild(buttonAll);
+  
+    for (let c = 0; c < categories.length; c++) {
+      const category = categories[c];
+  
+      const buttonFilters = document.createElement("button");
+      buttonFilters.id = "category-" + category.id;
+      buttonFilters.classList.add("category-filter");
+      buttonFilters.innerText = category.name;
+      filtersContainer.appendChild(buttonFilters);
+  
+      buttonFilters.addEventListener("click", () => {
+        resetFilters();
+        buttonFilters.classList.add("selected");
+        updateGallery();
+      });
+  
+      buttonAll.addEventListener("click", () => {
+        resetFilters();
+        buttonAll.classList.add("selected");
+        updateGallery();
+      });
+    }
   }
 }
+
 
 /* Ici la fonction principale est appelée pour afficher les éléments sur la page */
 fetchAndShowCategory(createFilters);
@@ -88,7 +96,7 @@ function resetFilters() {
   filters.forEach((filter) => filter.classList.remove("selected"));
 }
 
-/* Dans cette fonction ke prends tous les éléments qui ont la classe selected, c'est à dire le filtre selectionné. Ensuite j'identifie l'id du filtre selectionné dans la const filterId. Ensuite j'identifie toutes les figures dans la const figures pour pouvoir travailler les conditions. SI l'id du filtre selectionné est égal à "all", je supprime la classe d-none de toutes les figures. ELSE, je verifie pour chaque image SI la classe de la figure correspond/contient l'id du filtre. Si oui, la classe d-none est supprimée pour que l'image puisse être affichée, sinon la classe de la figure ne correspond pas à l'id du filtre, j'ajoute la classe d-none pour cacher la figure de la galerie  */
+/* Cette fonction prend tous les éléments qui ont la classe selected, c'est à dire le filtre selectionné. Ensuite j'identifie l'id du filtre selectionné dans la const filterId. Ensuite j'identifie toutes les figures dans la const figures pour pouvoir travailler les conditions. SI l'id du filtre selectionné est égal à "all", je supprime la classe d-none de toutes les figures. ELSE, je verifie pour chaque image SI la classe de la figure correspond/contient l'id du filtre. Si oui, la classe d-none est supprimée pour que l'image puisse être affichée, sinon la classe de la figure ne correspond pas à l'id du filtre, j'ajoute la classe d-none pour cacher la figure de la galerie  */
 function updateGallery() {
   const selectedFilter = document.querySelector(".selected");
   const filterId = selectedFilter.id;
@@ -109,3 +117,42 @@ function updateGallery() {
     });
   }
 }
+
+/* COMPORTEMENT QUAND L'USER EST CONNECTE */
+
+/* Logout */
+function userAuth() {
+
+  const userLoggedIn = document.querySelector("#login-btn");
+  const userLoggedOut = document.querySelector("#logout-btn");
+
+  if (userData !== null) {
+    userLoggedIn.classList.add("d-none");
+    userLoggedOut.classList.remove("d-none");
+  }
+}
+userAuth();
+
+function logout() {
+  window.localStorage.removeItem("userData");
+  window.location.href = "./index.html";
+} 
+
+const logoutButton = document.querySelector("#logout-btn");
+logoutButton.addEventListener("click", function (event) {
+  event.preventDefault();
+  logout();
+});
+
+function editionMode() {
+  const blackBarEdition = document.querySelector("#black-bar");
+  const modifierBtn = document.querySelector("#edition-btn");
+
+  if (userData !== null) {
+    blackBarEdition.classList.remove("d-none");
+    blackBarEdition.classList.add("edition-mode");
+    modifierBtn.classList.remove("d-none");
+    modifierBtn.classList.add("edition-btn");
+  }
+}
+editionMode();

@@ -22,7 +22,7 @@ form.addEventListener("submit", function (event) {
     .then(function (response) {
       // si les coordonées user sont ok et correspondent aux infos qui sont dans l'API, l'utilisateur est redirigé vers une autre page
       if (response.ok) {
-        window.location.href = "./homepage_edit.html";
+        window.location.href = "./index.html";
       } else {
         // si les coordonées ne sont pas bonnes, il affiche un message d'erreur
         alert("Erreur dans l’identifiant ou le mot de passe");

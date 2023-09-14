@@ -218,7 +218,7 @@ li a:hover {
 }
 #portfolio h2 {
   text-align: center;
-  margin: 139px 0 16px 0;
+  margin: 89px 0 16px 0;
 }
 
 #portfolio .filters {
@@ -387,14 +387,14 @@ footer nav ul {
   max-height: 16px;
 }
 
-#portfolio-edition {
+.toolbar {
   display: flex;
   gap: 31px;
   align-items: baseline;
   justify-content: center;
 }
 
-#portfolio-edition .edition-btn {
+.edition-btn {
   font-family: "Work Sans";
   font-weight: 400;
   font-size: 14px;
@@ -402,6 +402,7 @@ footer nav ul {
   color: black;
   border: none;
   margin: unset;
+  margin-bottom: 90px;
   padding: unset;
   display: flex;
   text-align: center;

@@ -66,22 +66,27 @@ function createModal(works) {
 
     const figureWorks = document.createElement("figure");
     figureWorks.classList.add("category-" + figure.categoryId);
+    figureWorks.classList.add("work-" + figure.id);
     worksInModal.appendChild(figureWorks);
 
     const workImg = document.createElement("img");
     workImg.classList.add("work-miniature");
     workImg.src = figure.imageUrl;
-    workImg.id = "work-" + figure.id;
+    workImg.classList.add("work-" + figure.id);
     figureWorks.appendChild(workImg);
 
-    const delWork = document.createElement("button");
-    delWork.classList.add("del-btn");
-    figureWorks.appendChild(delWork);
+    const buttonDelWork = document.createElement("button");
+    buttonDelWork.classList.add("del-btn");
+    buttonDelWork.id = "work-" + figure.id;
+    buttonDelWork.addEventListener("click", function () {
+      console.log("funciona") /* <====== ====== ====== aqui vai a funcao que deleta */ 
+    })
+    figureWorks.appendChild(buttonDelWork);
 
     const delIcon = document.createElement("img");
     delIcon.classList.add("del-icon");
     delIcon.src = "./assets/icons/trash-can-solid.svg";
-    delWork.appendChild(delIcon);
+    buttonDelWork.appendChild(delIcon);
   }
 }
 
