@@ -25,7 +25,8 @@ form.addEventListener("submit", function (event) {
         window.location.href = "./index.html";
       } else {
         // si les coordonées ne sont pas bonnes, il affiche un message d'erreur
-        alert("Erreur dans l’identifiant ou le mot de passe");
+        const erreur = document.querySelector(".erreur-msg");
+        erreur.classList.remove("d-none");
       }
       return response.json();
     })

@@ -317,6 +317,36 @@ footer nav ul {
   }
 }
 
+#login .erreur-msg {
+  color: white;
+  background: #db4040;
+  position: fixed;
+  top: 520px;
+  border-radius: 5px;
+  padding: 8px 10px;
+}
+
+#login .erreur-msg {
+  animation: shake 0.2s;
+  animation-iteration-count: 5;
+}
+
+@keyframes shake {
+  0% {margin-left: 0;}
+  25% {margin-left: 5px;}
+  50% {margin-left: 0;}
+  75% {margin-left: -5px;}
+  100% {margin-left: 0;}
+}
+
+
+#login .erreur-msg img {
+  width: 10px;
+  margin-right: 10px;
+  filter: invert(1);
+}
+
+
 #login form {
   display: flex;
   flex-direction: column;
@@ -430,7 +460,7 @@ footer nav ul {
   gap: 10px;
   padding: 26px 30px 65px 30px;
   top: 100px;
-  width: 630px;
+  width: 570px;
   height: 688px;
   background-color: white;
   border-radius: 10px;
@@ -486,7 +516,7 @@ hr {
   color: white;
   background-color: #1d6154;
   border: solid 1px #1d6154;
-  margin: 27px 0.625em;
+  margin: 27px;
   width: fit-content;
   padding: 18px 49px;
   border-radius: 60px;
