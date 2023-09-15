@@ -65,10 +65,12 @@ function createModal(works) {
     const buttonDelWork = document.createElement("button");
     buttonDelWork.classList.add("del-btn");
     buttonDelWork.id = "work-" + figure.id;
-    buttonDelWork.addEventListener("click", function (event) { // EVENEMENT QUI APPELLE LA FONCTION DELETEWORK
+    buttonDelWork.addEventListener("click", function (event) {
+      // EVENEMENT QUI APPELLE LA FONCTION DELETEWORK
       const buttonId = event.currentTarget.id;
-      console.log(buttonId); 
-      deleteWork(); 
+      console.log(buttonId);
+      const workId = buttonId.replace("work-", "");
+      deleteWork(workId);
     });
     figureWorks.appendChild(buttonDelWork);
 
@@ -83,35 +85,30 @@ fetchAndShowWorksInAModal(createModal);
 
 /* SUPPRESSION DE L'IMAGE */
 /*********************************************************************************/
-  
-async function deleteWork() {
 
+async function deleteWork(id) {
   try {
-    const response = await fetch("http://localhost:5678/api/works/{i}", {
+    const response = await fetch(`http://localhost:5678/api/works/${id}`, {
       method: "DELETE",
-      body: JSON.stringify(user),
       headers: {
-        userId: "number",
-        token: "string",
         "Content-Type": "application/json",
       },
     });
 
     if (response.status === 200) {
-      console.log("Item Deleted (200)")
+      console.log("Item Deleted (200)");
     }
     if (response.status === 401) {
-      console.log("Error: Unauthorized (401)")
+      console.log("Error: Unauthorized (401)");
     }
   } catch (error) {
-    console.log("Unexpected Behaviour")
+    console.error(error);
   }
 }
 
 /*********************************************************************************/
 /*********************************************************************************/
 /*********************************************************************************/
-
 
 /* Fermeture de la modale  */
 function closeModal(event) {
