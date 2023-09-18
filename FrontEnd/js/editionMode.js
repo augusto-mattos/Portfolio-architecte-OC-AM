@@ -68,7 +68,6 @@ function createModal(works) {
     buttonDelWork.addEventListener("click", function (event) {
       // EVENEMENT QUI APPELLE LA FONCTION DELETEWORK
       const buttonId = event.currentTarget.id;
-      console.log(buttonId);
       const workId = buttonId.replace("work-", "");
       deleteWork(workId);
     });
@@ -87,11 +86,18 @@ fetchAndShowWorksInAModal(createModal);
 /*********************************************************************************/
 
 async function deleteWork(id) {
+ 
+  const userDataString = localStorage.getItem("userData");
+  const userData = JSON.parse(userDataString); 
+  const userToken = userData.token;
+  
   try {
+
     const response = await fetch(`http://localhost:5678/api/works/${id}`, {
       method: "DELETE",
       headers: {
-        "Content-Type": "application/json",
+        accept: "*/*",
+        Authorization: `Bearer ${userToken}`,
       },
     });
 

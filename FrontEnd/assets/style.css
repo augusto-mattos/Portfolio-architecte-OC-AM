@@ -321,7 +321,7 @@ footer nav ul {
   color: white;
   background: #db4040;
   position: fixed;
-  top: 520px;
+  top: 560px;
   border-radius: 5px;
   padding: 8px 10px;
 }
@@ -461,7 +461,7 @@ footer nav ul {
   padding: 26px 30px 65px 30px;
   top: 100px;
   width: 570px;
-  height: 688px;
+  /* height: 688px; */
   background-color: white;
   border-radius: 10px;
   z-index: 1;
