@@ -67,6 +67,8 @@ function createModal(works) {
     buttonDelWork.id = "work-" + figure.id;
     buttonDelWork.addEventListener("click", function (event) {
       // EVENEMENT QUI APPELLE LA FONCTION DELETEWORK
+      event.preventDefault();
+      event.stopPropagation();
       const buttonId = event.currentTarget.id;
       const workId = buttonId.replace("work-", "");
       deleteWork(workId);
