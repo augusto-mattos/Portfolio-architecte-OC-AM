@@ -46,21 +46,45 @@
 				</figure>
 				<article>
 					<h2>Designer d'espace</h2>
-					<p>Je raconte votre histoire, je valorise vos idées. Je vous accompagne de la conception à la livraison finale du chantier.</p>
-					<p>Chaque projet sera étudié en commun, de façon à mettre en valeur les volumes, les matières et les couleurs dans le respect de l’esprit des lieux et le choix adapté des matériaux. Le suivi du chantier sera assuré dans le souci du détail, le respect du planning et du budget.</p>
-					<p>En cas de besoin, une équipe pluridisciplinaire peut-être constituée : architecte DPLG, décorateur(trice)</p>
+					<p>Je raconte votre histoire, je valorise vos idées. Je vous accompagne de la conception à la
+						livraison finale du chantier.</p>
+					<p>Chaque projet sera étudié en commun, de façon à mettre en valeur les volumes, les matières et les
+						couleurs dans le respect de l’esprit des lieux et le choix adapté des matériaux. Le suivi du
+						chantier sera assuré dans le souci du détail, le respect du planning et du budget.</p>
+					<p>En cas de besoin, une équipe pluridisciplinaire peut-être constituée : architecte DPLG,
+						décorateur(trice)</p>
 				</article>
 			</section>
 			<section id="portfolio">
 				<div class="toolbar">
-					<aside id="edit-modal" class="d-none" role="dialog" aria-labelledby="title-modal"
-						aria-hidden="true">
+					<aside id="edit-modal" class="d-none" aria-hidden="true">
 						<button id="close-btn" class="close-btn"><img src="./assets/icons/close_button.svg"
 								alt="fermer la modale"></button>
-						<h3 id="title-modal">Galerie Photo</h3>
-						<div class="works-modal"></div>
-						<hr>
-						<button class="addPhoto-btn">Ajouter une photo</button>
+						<div id="modal-step1">
+							<h3>Galerie Photo</h3>
+							<div class="works-modal"></div>
+							<hr>
+							<button class="addPhoto-btn">Ajouter une photo</button>
+						</div>
+						<div id="modal-step2" class="d-none">
+							<button class="retour-btn"><img src="./assets/icons/arrow-left-solid.svg"
+									alt="bouton de retour à l'étape précedente"></button>
+							<h3>Ajout Photo</h3>
+								<form method="post">
+									<label for="image">
+										<img src="./assets/icons/picture-svgrepo-com.svg" alt="upload d'un nouveau travail">										
+										<button>+ Ajouter photo</button>
+										<span>jpg, png : 4mo max</span>
+										<input type="file" name="image" id="image">
+									</label>
+									<label for="titre">Titre</label>
+									<input type="text" name="titre" id="titre">
+									<label for="categorie">Catégorie</label>
+									<input type="select" name="categorie" id="categorie">
+									<hr>
+									<button class="validatePhoto-btn" disabled>Valider</button>
+								</form>
+						</div>
 					</aside>
 					<h2>Mes projets</h2>
 					<button id="edition-btn" class="d-none">

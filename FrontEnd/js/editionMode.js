@@ -84,9 +84,8 @@ function createModal(works) {
 
 fetchAndShowWorksInAModal(createModal);
 
-/* SUPPRESSION DE L'IMAGE */
 /*********************************************************************************/
-
+/* SUPPRESSION DE L'IMAGE */
 async function deleteWork(id) {
  
   const userDataString = localStorage.getItem("userData");
@@ -105,17 +104,38 @@ async function deleteWork(id) {
 
     if (response.status === 200) {
       console.log("Item Deleted (200)");
+      const workElement = document.querySelector(".work-" + id);
+      if (workElement) {
+        workElement.remove();
+      }
     }
-    if (response.status === 401) {
+    else if (response.status === 401) {
       console.log("Error: Unauthorized (401)");
     }
   } catch (error) {
     console.error(error);
   }
 }
+/*********************************************************************************/
 
 /*********************************************************************************/
-/*********************************************************************************/
+/* AJOUTER UNE IMAGE */
+const ajoutPhotoBtn = document.querySelector(".addPhoto-btn")
+ajoutPhotoBtn.addEventListener("click", function() {
+  const step1 = document.querySelector("#modal-step1"); 
+  step1.classList.add("d-none");
+  const step2 = document.querySelector("#modal-step2");
+  step2.classList.remove("d-none");
+})
+
+const retourBtn = document.querySelector(".retour-btn");
+retourBtn.addEventListener("click", function() {
+  const step1 = document.querySelector("#modal-step1"); 
+  step1.classList.remove("d-none");
+  const step2 = document.querySelector("#modal-step2");
+  step2.classList.add("d-none");
+})
+
 /*********************************************************************************/
 
 /* Fermeture de la modale  */
