@@ -136,19 +136,38 @@ retourBtn.addEventListener("click", function() {
   step2.classList.add("d-none");
 })
 
-/* Cette fonction montre les categories a partir du fetch fait précedemment dans portfolio.js pour exhiber les catégories dans index */ 
-function categoryInput(categories) {
-  const selectElement = document.querySelector("select");
-  
-    for (let c = 0; c < categories.length; c++) {
-      const category = categories[c];
-
-      const options = document.createElement("option");
-      options.id = category.id;
-      options.innerText = category.name;
-      selectElement.appendChild(options);
+/* Preview de l'image uploadée */ 
+function readImage() {
+  if (this.files && this.files[0]) {
+      let file = new FileReader();
+      file.onload = function(e) {
+          document.querySelector(".preview-img").src = e.target.result;
+      };       
+      file.readAsDataURL(this.files[0]);
+      document.querySelector(".upload-instructions").classList.add("d-none");
+      document.querySelector(".preview-img").classList.remove("d-none");
     }
   }
+  document.querySelector("#image").addEventListener("change", readImage, false);
+
+/* Cette fonction montre les categories a partir du fetch fait précedemment dans portfolio.js pour exhiber les catégories dans index */ 
+function categoryInput(categories) {
+  const selectElement = document.querySelector("datalist");
+
+  let lastCategoryId = 0;
+  
+  for (let c = 0; c < categories.length; c++) {
+    const category = categories[c];
+    if (category.id > lastCategoryId) {
+      lastCategoryId = category.id;
+    }
+    
+    const options = document.createElement("option");
+    options.id = category.id;
+    options.innerText = category.name;
+    selectElement.appendChild(options);
+  }
+}
 
 /*********************************************************************************/
 

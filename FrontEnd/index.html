@@ -72,15 +72,19 @@
 							<h3>Ajout Photo</h3>
 								<form method="post">
 									<label for="image">
-										<img src="./assets/icons/picture-svgrepo-com.svg" alt="upload d'un nouveau travail">										
-										<button>+ Ajouter photo</button>
-										<span>jpg, png : 4mo max</span>
-										<input type="file" name="image" id="image">
+										<div class="upload-instructions">
+											<img src="./assets/icons/picture-svgrepo-com.svg" alt="upload d'un nouveau travail">										
+											<span class="uploadPhoto-btn">+ Ajouter photo</span>
+											<span>jpg, png : 4mo max</span>
+										</div>
+										<img class="preview-img d-none" src="">
+										<input type="file" name="image" id="image" accept="image/png, image/jpeg">
 									</label>
 									<label for="titre">Titre</label>
 									<input type="text" name="titre" id="titre">
 									<label for="categorie">Catégorie</label>
-									<select name="categorie" id="categorie"></select>										
+									<input type="text" name="categorie" id="categorie" list="categoryList">
+									<datalist name="categorie" id="categoryList"></datalist>
 									<hr>
 									<button class="validatePhoto-btn" disabled>Valider</button>
 								</form>
