@@ -611,8 +611,7 @@ hr {
   font-size: 10px;
 }
 
-#modal-step2 input,
-#modal-step2 select {
+#modal-step2 input {
   padding: 2px 0 1px 0;
   border: solid 16px transparent;
   margin-bottom: 26px;

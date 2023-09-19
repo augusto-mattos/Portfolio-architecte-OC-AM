@@ -138,17 +138,22 @@ retourBtn.addEventListener("click", function() {
 
 /* Cette fonction montre les categories a partir du fetch fait précedemment dans portfolio.js pour exhiber les catégories dans index */ 
 function categoryInput(categories) {
-  const selectElement = document.querySelector("select");
-  
-    for (let c = 0; c < categories.length; c++) {
-      const category = categories[c];
+  const selectElement = document.querySelector("datalist");
 
-      const options = document.createElement("option");
-      options.id = category.id;
-      options.innerText = category.name;
-      selectElement.appendChild(options);
+  let lastCategoryId = 0;
+  
+  for (let c = 0; c < categories.length; c++) {
+    const category = categories[c];
+    if (category.id > lastCategoryId) {
+      lastCategoryId = category.id;
     }
+    
+    const options = document.createElement("option");
+    options.id = category.id;
+    options.innerText = category.name;
+    selectElement.appendChild(options);
   }
+}
 
 /*********************************************************************************/
 
