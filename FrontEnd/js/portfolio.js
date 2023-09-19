@@ -43,6 +43,8 @@ async function fetchAndShowCategory() {
     const categories = await response.json();
 
     createFilters(categories);
+    categoryInput(categories);
+    
   } catch (error) {
     console.error(error);
   }

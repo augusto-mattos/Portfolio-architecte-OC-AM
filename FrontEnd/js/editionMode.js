@@ -136,12 +136,28 @@ retourBtn.addEventListener("click", function() {
   step2.classList.add("d-none");
 })
 
+/* Cette fonction montre les categories a partir du fetch fait précedemment dans portfolio.js pour exhiber les catégories dans index */ 
+function categoryInput(categories) {
+  const selectElement = document.querySelector("select");
+  
+    for (let c = 0; c < categories.length; c++) {
+      const category = categories[c];
+
+      const options = document.createElement("option");
+      options.id = category.id;
+      options.innerText = category.name;
+      selectElement.appendChild(options);
+    }
+  }
+
 /*********************************************************************************/
 
 /* Fermeture de la modale  */
 function closeModal(event) {
   const bodyOpacity = document.querySelector(".body-opacity");
   const modal = document.querySelector(".modal");
+  const step1 = document.querySelector("#modal-step1"); 
+  const step2 = document.querySelector("#modal-step2");
 
   const closeBtn = document.querySelector(".close-btn");
   closeBtn.addEventListener("click", function () {
@@ -149,13 +165,18 @@ function closeModal(event) {
     modal.classList.remove("modal");
     modal.classList.add("d-none");
     modal.setAttribute("aria-hidden", "true");
+    step1.classList.remove("d-none");
+    step2.classList.add("d-none");
   });
+  
 
   if (event.target.classList.contains("body-opacity")) {
     bodyOpacity.remove();
     modal.classList.remove("modal");
     modal.classList.add("d-none");
     modal.setAttribute("aria-hidden", "true");
+    step1.classList.remove("d-none");
+    step2.classList.add("d-none");
   }
 }
 
