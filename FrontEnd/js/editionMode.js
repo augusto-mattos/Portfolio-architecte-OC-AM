@@ -152,7 +152,7 @@ function readImage() {
 
 /* Cette fonction montre les categories a partir du fetch fait précedemment dans portfolio.js pour exhiber les catégories dans index */ 
 function categoryInput(categories) {
-  const selectElement = document.querySelector("datalist");
+  const selectElement = document.querySelector("select");
 
   let lastCategoryId = 0;
   
@@ -186,6 +186,12 @@ const newImageTitle = document.querySelector("#titre");
 newImageTitle.addEventListener("change", function() {
   console.log(newImageTitle.value);
 });
+
+const select = document.querySelector("select");
+select.addEventListener("change", function() {
+  const selectedCategoryId = select.options[select.selectedIndex].id;
+  console.log(selectedCategoryId);
+})
 
 /*********************************************************************************/
 

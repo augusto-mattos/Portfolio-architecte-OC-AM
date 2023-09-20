@@ -526,7 +526,8 @@ hr {
   height: inherit;
 }
 
-#modal-step2 input {
+#modal-step2 input,
+#modal-step2 select {
   padding: 2px 0 1px 0;
   border: solid 16px transparent;
   margin-bottom: 26px;
