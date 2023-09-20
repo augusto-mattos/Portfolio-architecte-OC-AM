@@ -167,7 +167,25 @@ function categoryInput(categories) {
     options.innerText = category.name;
     selectElement.appendChild(options);
   }
-}
+};
+
+/* Identification des champs de formulaires remplis */ 
+
+const imgInput = document.querySelector("#image");
+const newImage = document.querySelector(".preview-img")
+imgInput.addEventListener("change", function() {
+  if (imgInput.files.length > 0) {
+    const file = imgInput.files[0];
+    const imgUrl = URL.createObjectURL(file);
+    newImage.src = imgUrl;
+    console.log(newImage.src);
+  } 
+});   
+
+const newImageTitle = document.querySelector("#titre");
+newImageTitle.addEventListener("change", function() {
+  console.log(newImageTitle.value);
+});
 
 /*********************************************************************************/
 
@@ -175,8 +193,6 @@ function categoryInput(categories) {
 function closeModal(event) {
   const bodyOpacity = document.querySelector(".body-opacity");
   const modal = document.querySelector(".modal");
-  const step1 = document.querySelector("#modal-step1"); 
-  const step2 = document.querySelector("#modal-step2");
 
   const closeBtn = document.querySelector(".close-btn");
   closeBtn.addEventListener("click", function () {
@@ -184,18 +200,21 @@ function closeModal(event) {
     modal.classList.remove("modal");
     modal.classList.add("d-none");
     modal.setAttribute("aria-hidden", "true");
-    step1.classList.remove("d-none");
-    step2.classList.add("d-none");
+    document.querySelector("#modal-step1").classList.remove("d-none");
+    document.querySelector("#modal-step2").classList.add("d-none");
+    document.querySelector(".upload-instructions").classList.remove("d-none");
+    document.querySelector(".preview-img").classList.add("d-none");
   });
   
-
   if (event.target.classList.contains("body-opacity")) {
     bodyOpacity.remove();
     modal.classList.remove("modal");
     modal.classList.add("d-none");
     modal.setAttribute("aria-hidden", "true");
-    step1.classList.remove("d-none");
-    step2.classList.add("d-none");
+    document.querySelector("#modal-step1").classList.remove("d-none");
+    document.querySelector("#modal-step2").classList.add("d-none");
+    document.querySelector(".upload-instructions").classList.remove("d-none");
+    document.querySelector(".preview-img").classList.add("d-none");
   }
 }
 
