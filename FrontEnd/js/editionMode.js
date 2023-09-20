@@ -150,7 +150,7 @@ function readImage() {
   }
   document.querySelector("#image").addEventListener("change", readImage, false);
 
-/* Cette fonction montre les categories a partir du fetch fait précedemment dans portfolio.js pour exhiber les catégories dans index */ 
+/* Cette fonction montre les categories a partir du fetch fait précedemment dans portfolio.js pour exhiber les catégories dans index. */ 
 function categoryInput(categories) {
   const selectElement = document.querySelector("select");
 
@@ -170,13 +170,14 @@ function categoryInput(categories) {
 };
 
 /* Identification des champs de formulaires remplis */ 
+let imgUrl = "";
 
 const imgInput = document.querySelector("#image");
 const newImage = document.querySelector(".preview-img")
 imgInput.addEventListener("change", function() {
   if (imgInput.files.length > 0) {
     const file = imgInput.files[0];
-    const imgUrl = URL.createObjectURL(file);
+    imgUrl = URL.createObjectURL(file);
     newImage.src = imgUrl;
     console.log(newImage.src);
   } 
@@ -187,14 +188,28 @@ newImageTitle.addEventListener("change", function() {
   console.log(newImageTitle.value);
 });
 
+let selectedCategoryId = "";
+
 const select = document.querySelector("select");
 select.addEventListener("change", function() {
   const selectedCategoryId = select.options[select.selectedIndex].id;
   console.log(selectedCategoryId);
-})
+
+  if (selectedCategoryId > 0) {
+    enableValidateBtn();
+  }
+
+});
+
+function enableValidateBtn() {
+  if (imgUrl !== "" && newImageTitle.value !== "") {
+    document.querySelector(".validatePhoto-btn").disabled = false;
+  } else {
+    console.log("error")
+  }
+}
 
 /*********************************************************************************/
-
 /* Fermeture de la modale  */
 function closeModal(event) {
   const bodyOpacity = document.querySelector(".body-opacity");
