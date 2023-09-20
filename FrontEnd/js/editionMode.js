@@ -205,7 +205,8 @@ function enableValidateBtn() {
   if (imgUrl !== "" && newImageTitle.value !== "") {
     document.querySelector(".validatePhoto-btn").disabled = false;
   } else {
-    console.log("error")
+    const erreur = document.querySelector(".erreur-msg-modal");
+    erreur.classList.remove("d-none");  
   }
 }
 

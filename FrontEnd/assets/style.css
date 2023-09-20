@@ -221,7 +221,8 @@ footer nav ul {
   }
 }
 
-#login .erreur-msg {
+#login .erreur-msg,
+#portfolio .erreur-msg-modal {
   color: white;
   background: #db4040;
   position: fixed;
@@ -230,7 +231,13 @@ footer nav ul {
   padding: 8px 10px;
 }
 
-#login .erreur-msg {
+#portfolio .erreur-msg-modal {
+  position: relative;
+  top: -125px;
+}
+
+#login .erreur-msg,
+#portfolio .erreur-msg-modal {
   animation: shake 0.2s;
   animation-iteration-count: 5;
 }
@@ -253,7 +260,8 @@ footer nav ul {
   }
 }
 
-#login .erreur-msg img {
+#login .erreur-msg img,
+#portfolio .erreur-msg-modal img {
   width: 10px;
   margin-right: 10px;
   filter: invert(1);
