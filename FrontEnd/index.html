@@ -78,13 +78,17 @@
 											<span>jpg, png : 4mo max</span>
 										</span>
 										<img class="preview-img d-none" alt="preview de l'image selectionée" src="">
-										<input type="file" name="image" id="image" accept="image/png, image/jpeg">
+										<input type="file" name="image" id="image" accept="image/png, image/jpeg" required>
 									</label>
+
 									<label for="titre">Titre</label>
-									<input type="text" name="titre" id="titre">
+									<input type="text" name="titre" id="titre" value="" required>
+									
 									<label for="categorie">Catégorie</label>
-									<input type="text" name="categorie" id="categorie" list="categoryList">
-									<datalist id="categoryList"></datalist>
+									
+										<input type="text" name="categorie" id="categorie" list="categoryList" required>
+										<datalist id="categoryList"></datalist>
+									
 									<hr>
 									<button class="validatePhoto-btn" disabled>Valider</button>
 								</form>
