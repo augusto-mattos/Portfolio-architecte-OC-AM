@@ -84,14 +84,14 @@
 									<label for="titre">Titre</label>
 									<input type="text" name="titre" id="titre" value="" required>
 									
-									<label for="categorie">Catégorie</label>
-									
-										<input type="text" name="categorie" id="categorie" list="categoryList" required>
-										<datalist id="categoryList"></datalist>
+									<label for="categoryList">Catégorie</label>
+									<select id="categoryList" required></select>
 									
 									<hr>
+									
 									<button class="validatePhoto-btn" disabled>Valider</button>
 								</form>
+								<p class="erreur-msg d-none"><span><img src="./assets/icons/triangle-exclamation-solid.svg" alt="Icone pour le message d'erreur"></span>Le formulaire n’est pas correctement rempli !</p>
 						</div>
 					</aside>
 					<h2>Mes projets</h2>
