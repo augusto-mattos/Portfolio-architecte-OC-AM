@@ -24,15 +24,23 @@ openModalButton.addEventListener("click", function (event) {
     modal.removeAttribute("aria-hidden");
   }
 
-  openModal();
+  showModal();
 });
 
 /* L'ouverture de la modal rajout une div pour changer l'opacité de l'écran et appeller la fonction de création de la modale */
-function openModal() {
+function showModal() {
   const body = document.getElementsByTagName("body")[0];
   const bodyOpacity = document.createElement("div");
   bodyOpacity.classList.add("body-opacity");
+  bodyOpacity.addEventListener("click", function () {
+    closeModal();
+  });
   body.appendChild(bodyOpacity);
+
+  const closeBtn = document.querySelector(".close-btn");
+  closeBtn.addEventListener("click", function () {
+    closeModal();
+  });
 }
 
 /* Création de la modale */
@@ -64,6 +72,7 @@ function createModal(works) {
 
     const buttonDelWork = document.createElement("button");
     buttonDelWork.classList.add("del-btn");
+    buttonDelWork.type = "button";
     buttonDelWork.id = "work-" + figure.id;
     buttonDelWork.addEventListener("click", function (event) {
       // EVENEMENT QUI APPELLE LA FONCTION DELETEWORK
@@ -152,15 +161,10 @@ function readImage() {
 
 /* Cette fonction montre les categories a partir du fetch fait précedemment dans portfolio.js pour exhiber les catégories dans index. */ 
 function categoryInput(categories) {
-  const selectElement = document.querySelector("select");
-
-  let lastCategoryId = 0;
-  
+  const selectElement = document.getElementById("categoryList");
+    
   for (let c = 0; c < categories.length; c++) {
     const category = categories[c];
-    if (category.id > lastCategoryId) {
-      lastCategoryId = category.id;
-    }
     
     const options = document.createElement("option");
     options.id = category.id;
@@ -212,23 +216,10 @@ function enableValidateBtn() {
 
 /*********************************************************************************/
 /* Fermeture de la modale  */
-function closeModal(event) {
+
+function closeModal() {
   const bodyOpacity = document.querySelector(".body-opacity");
   const modal = document.querySelector(".modal");
-
-  const closeBtn = document.querySelector(".close-btn");
-  closeBtn.addEventListener("click", function () {
-    bodyOpacity.remove();
-    modal.classList.remove("modal");
-    modal.classList.add("d-none");
-    modal.setAttribute("aria-hidden", "true");
-    document.querySelector("#modal-step1").classList.remove("d-none");
-    document.querySelector("#modal-step2").classList.add("d-none");
-    document.querySelector(".upload-instructions").classList.remove("d-none");
-    document.querySelector(".preview-img").classList.add("d-none");
-  });
-  
-  if (event.target.classList.contains("body-opacity")) {
     bodyOpacity.remove();
     modal.classList.remove("modal");
     modal.classList.add("d-none");
@@ -238,6 +229,4 @@ function closeModal(event) {
     document.querySelector(".upload-instructions").classList.remove("d-none");
     document.querySelector(".preview-img").classList.add("d-none");
   }
-}
-
-document.addEventListener("click", closeModal);
+  
