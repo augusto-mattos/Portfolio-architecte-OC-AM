@@ -50,6 +50,20 @@ async function fetchAndShowCategory() {
   }
 }
 
+/* Cette fonction montre les categories pour exhiber les catégories dans le champ de selection de la modale. */ 
+function categoryInput(categories) {
+  const selectElement = document.getElementById("categoryList");
+    
+  for (let c = 0; c < categories.length; c++) {
+    const category = categories[c];
+    
+    const options = document.createElement("option");
+    options.id = category.id;
+    options.innerText = category.name;
+    selectElement.appendChild(options);
+  }
+};
+
 /* Cette fontion manipule le DOM pour créer les boutons qui serviront des filtres par categorie. La boucle for parcourt les données obtenues et créer les éléments html pour chaque index identifié dans l'array. Dans la boucle il y a aussi les eventListeners qui suppriment ou ajoutent une classe aux boutons */
 function createFilters(categories) {
   const filtersContainer = document.querySelector(".filters");
