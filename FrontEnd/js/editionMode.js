@@ -15,6 +15,7 @@ editionMode();
 const openModalButton = document.querySelector(".edition-btn");
 openModalButton.addEventListener("click", function (event) {
   event.preventDefault();
+  event.stopPropagation();
 
   const modal = document.getElementById("edit-modal");
 
@@ -125,7 +126,6 @@ async function deleteWork(id) {
     console.error(error);
   }
 }
-/*********************************************************************************/
 
 /*********************************************************************************/
 /* AJOUTER UNE IMAGE */
@@ -158,20 +158,6 @@ function readImage() {
     }
   }
   document.querySelector("#image").addEventListener("change", readImage, false);
-
-/* Cette fonction montre les categories a partir du fetch fait précedemment dans portfolio.js pour exhiber les catégories dans index. */ 
-function categoryInput(categories) {
-  const selectElement = document.getElementById("categoryList");
-    
-  for (let c = 0; c < categories.length; c++) {
-    const category = categories[c];
-    
-    const options = document.createElement("option");
-    options.id = category.id;
-    options.innerText = category.name;
-    selectElement.appendChild(options);
-  }
-};
 
 /* Identification des champs de formulaires remplis */ 
 let imgUrl = "";
@@ -216,7 +202,6 @@ function enableValidateBtn() {
 
 /*********************************************************************************/
 /* Fermeture de la modale  */
-
 function closeModal() {
   const bodyOpacity = document.querySelector(".body-opacity");
   const modal = document.querySelector(".modal");
@@ -228,5 +213,4 @@ function closeModal() {
     document.querySelector("#modal-step2").classList.add("d-none");
     document.querySelector(".upload-instructions").classList.remove("d-none");
     document.querySelector(".preview-img").classList.add("d-none");
-  }
-  
+  };
