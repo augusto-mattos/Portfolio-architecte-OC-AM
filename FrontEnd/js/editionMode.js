@@ -165,11 +165,25 @@ let imgUrl = "";
 const imgInput = document.querySelector("#image");
 const newImage = document.querySelector(".preview-img")
 imgInput.addEventListener("change", function() {
+  
+  const images = document.querySelectorAll(".gallery img");
+  const lastImg = images[images.length -1];
+  const lastImgId = lastImg.getAttribute("id");
+  console.log(lastImgId);
+
   if (imgInput.files.length > 0) {
     const file = imgInput.files[0];
     imgUrl = URL.createObjectURL(file);
     newImage.src = imgUrl;
+
+    const lastId = parseInt(lastImgId.split('-')[1]);
+    const newId = lastId + 1;
+    const newImageId = newId.toString();
+    newImage.id = newImageId;
+    
     console.log(newImage.src);
+    console.log(newImage.id);
+
   } 
 });   
 
@@ -192,11 +206,64 @@ select.addEventListener("change", function() {
 });
 
 function enableValidateBtn() {
+  const validateBtn = document.querySelector(".validatePhoto-btn");
+
   if (imgUrl !== "" && newImageTitle.value !== "") {
-    document.querySelector(".validatePhoto-btn").disabled = false;
+    validateBtn.disabled = false;
+    validateBtn.addEventListener("click", () => {
+      sendData();
+    })
   } else {
     const erreur = document.querySelector(".erreur-msg-modal");
     erreur.classList.remove("d-none");  
+  }
+}
+
+/* Envoi des nouveaux projets */ 
+
+let userId = userData.id;
+
+async function sendData(data) {
+  const formData = new FormData();
+  
+  for (const id in data) {
+    formData.append(id, data[newImage]);
+  }
+    for (const title in data) {
+    formData.append(title, data[newImageTitle.value]);
+  }
+  for (const imageUrl in data) {
+    formData.append(imageUrl, data[imgUrl]);
+  }
+  for (const categoryId in data) {
+    formData.append(categoryId, data[selectedCategoryId]);
+  }
+  for (const userId in data) {
+    formData.append(userId, data[userId]);
+  }
+  
+  const userDataString = localStorage.getItem("userData");
+  const userData = JSON.parse(userDataString); 
+  const userToken = userData.token;
+
+  try {
+    const response = await fetch("http://localhost:5678/api/works", {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${userToken}`,
+      },
+      body: formData,
+    });
+    if (response.status === 200) {
+      console.log("deu certo");
+    }
+    else if (response.status === 401) {
+      console.log("Error: Unauthorized (401)");
+    }  else if (response.status === 500) {
+      console.log("Error 500 (500)");
+    }
+  } catch (error) {
+    console.error("error")
   }
 }
 

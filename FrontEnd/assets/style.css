@@ -455,6 +455,7 @@ hr {
   position: relative;
   top: -85%;
   left: 35%;
+  cursor: pointer;
 }
 
 .modal .del-icon {
