@@ -1,3 +1,7 @@
+console.log(userData);
+console.log(userData.token);
+console.log(userData.userId);
+
 function editionMode() {
   const blackBarEdition = document.querySelector("#black-bar");
   const modifierBtn = document.querySelector("#edition-btn");
@@ -13,20 +17,22 @@ editionMode();
 
 /* MODAL D'EDITION*/
 const openModalButton = document.querySelector(".edition-btn");
-openModalButton.addEventListener("click", function (event) {
-  event.preventDefault();
-  event.stopPropagation();
-
-  const modal = document.getElementById("edit-modal");
-
-  if (modal) {
-    modal.classList.add("modal");
-    modal.classList.remove("d-none");
-    modal.removeAttribute("aria-hidden");
-  }
-
-  showModal();
-});
+if (userData !== null) {
+  openModalButton.addEventListener("click", function (event) {
+    event.preventDefault();
+    event.stopPropagation();
+  
+    const modal = document.getElementById("edit-modal");
+  
+    if (modal) {
+      modal.classList.add("modal");
+      modal.classList.remove("d-none");
+      modal.removeAttribute("aria-hidden");
+    }
+  
+    showModal();
+  });
+}
 
 /* L'ouverture de la modal rajout une div pour changer l'opacité de l'écran et appeller la fonction de création de la modale */
 function showModal() {
@@ -97,18 +103,13 @@ fetchAndShowWorksInAModal(createModal);
 /*********************************************************************************/
 /* SUPPRESSION DE L'IMAGE */
 async function deleteWork(id) {
- 
-  const userDataString = localStorage.getItem("userData");
-  const userData = JSON.parse(userDataString); 
-  const userToken = userData.token;
   
   try {
 
-    const response = await fetch(`http://localhost:5678/api/works/${id}`, {
+    const response = await fetch("http://localhost:5678/api/works/", {
       method: "DELETE",
       headers: {
-        accept: "*/*",
-        Authorization: `Bearer ${userToken}`,
+        Authorization: `Bearer ${userData.token}`,
       },
     });
 
@@ -189,7 +190,8 @@ imgInput.addEventListener("change", function() {
 
 const newImageTitle = document.querySelector("#titre");
 newImageTitle.addEventListener("change", function() {
-  console.log(newImageTitle.value);
+  title = newImageTitle.value;
+  console.log(title);
 });
 
 let selectedCategoryId = "";
@@ -221,50 +223,32 @@ function enableValidateBtn() {
 
 /* Envoi des nouveaux projets */ 
 
-let userId = userData.id;
-
-async function sendData(data) {
-  const formData = new FormData();
+async function sendData() {
   
-  for (const id in data) {
-    formData.append(id, data[newImage]);
-  }
-    for (const title in data) {
-    formData.append(title, data[newImageTitle.value]);
-  }
-  for (const imageUrl in data) {
-    formData.append(imageUrl, data[imgUrl]);
-  }
-  for (const categoryId in data) {
-    formData.append(categoryId, data[selectedCategoryId]);
-  }
-  for (const userId in data) {
-    formData.append(userId, data[userId]);
-  }
-  
-  const userDataString = localStorage.getItem("userData");
-  const userData = JSON.parse(userDataString); 
-  const userToken = userData.token;
-
   try {
     const response = await fetch("http://localhost:5678/api/works", {
       method: 'POST',
       headers: {
-        'Authorization': `Bearer ${userToken}`,
+        accept: "*/*",
+        Authorization: `Bearer ${userData.token}`,
       },
       body: formData,
     });
-    if (response.status === 200) {
-      console.log("deu certo");
-    }
-    else if (response.status === 401) {
-      console.log("Error: Unauthorized (401)");
-    }  else if (response.status === 500) {
-      console.log("Error 500 (500)");
-    }
+    const result = await response.json();
+    console.log("Success:", result);
+    
   } catch (error) {
     console.error("error")
   }
+
+  const formData = new FormData();
+
+  formData.append("id", newImage.id);
+  formData.append("title", title);
+  formData.append("image", newImage.src);
+  formData.append("categoryId", selectedCategoryId);
+  formData.append("userId", userData.userId);
+
 }
 
 /*********************************************************************************/

@@ -1,4 +1,5 @@
-const userData = window.localStorage.getItem("userData");
+const userDataString = window.localStorage.getItem("userData");
+const userData = JSON.parse(userDataString); 
 
 /* Cette fonction fait une requette pour obtenir les données depuis l'API et affiche la fonction qui manipule le DOM. Le catch affichera un message en cas d'erreur */
 async function fetchAndShowWorks() {
