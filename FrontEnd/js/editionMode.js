@@ -1,3 +1,7 @@
+console.log(userData);
+console.log(userData.token);
+console.log(userData.userId);
+
 function editionMode() {
   const blackBarEdition = document.querySelector("#black-bar");
   const modifierBtn = document.querySelector("#edition-btn");
@@ -99,18 +103,13 @@ fetchAndShowWorksInAModal(createModal);
 /*********************************************************************************/
 /* SUPPRESSION DE L'IMAGE */
 async function deleteWork(id) {
- 
-  const userDataString = localStorage.getItem("userData");
-  const userData = JSON.parse(userDataString); 
-  const userToken = userData.token;
   
   try {
 
-    const response = await fetch(`http://localhost:5678/api/works/${id}`, {
+    const response = await fetch("http://localhost:5678/api/works/", {
       method: "DELETE",
       headers: {
-        accept: "*/*",
-        Authorization: `Bearer ${userToken}`,
+        Authorization: `Bearer ${userData.token}`,
       },
     });
 
@@ -226,39 +225,30 @@ function enableValidateBtn() {
 
 async function sendData() {
   
-  const userDataString = localStorage.getItem("userData");
-  const userData = JSON.parse(userDataString); 
-  const userId = userData.id;
-  const userToken = userData.token;
-
-  const formData = new FormData();
-  
-  formData.append("id", newImage.id);
-  formData.append("title", title);
-  formData.append("image", newImage.src);
-  formData.append("categoryId", selectedCategoryId);
-  formData.append("userId", userId);
-  
   try {
     const response = await fetch("http://localhost:5678/api/works", {
       method: 'POST',
       headers: {
-        Authorization: `Bearer ${userToken}`,
+        accept: "*/*",
+        Authorization: `Bearer ${userData.token}`,
       },
       body: formData,
     });
-    if (response.status === 200) {
-      console.log("deu certo");
-      alert("deu certo"); 
-    }
-    else if (response.status === 401) {
-      console.log("Error: Unauthorized (401)");
-    }  else if (response.status === 500) {
-      console.log("Error 500 (500)");
-    }
+    const result = await response.json();
+    console.log("Success:", result);
+    
   } catch (error) {
     console.error("error")
   }
+
+  const formData = new FormData();
+
+  formData.append("id", newImage.id);
+  formData.append("title", title);
+  formData.append("image", newImage.src);
+  formData.append("categoryId", selectedCategoryId);
+  formData.append("userId", userData.userId);
+
 }
 
 /*********************************************************************************/
