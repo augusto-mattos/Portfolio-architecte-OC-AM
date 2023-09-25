@@ -188,20 +188,20 @@ imgInput.addEventListener("change", function() {
   } 
 });   
 
-const newImageTitle = document.querySelector("#titre");
+let newImageTitle = document.querySelector("#titre");
 newImageTitle.addEventListener("change", function() {
-  title = newImageTitle.value;
-  console.log(title);
+  newImageTitle = newImageTitle.value;
+  console.log(newImageTitle);
 });
 
 let selectedCategoryId = "";
 
 const select = document.querySelector("select");
 select.addEventListener("change", function() {
-  const selectedCategoryId = select.options[select.selectedIndex].id;
+  const selectedCategoryId = select.options[select.selectedIndex].id.toString();
   console.log(selectedCategoryId);
 
-  if (selectedCategoryId > 0) {
+  if (selectedCategoryId > "0") {
     enableValidateBtn();
   }
 
@@ -212,7 +212,8 @@ function enableValidateBtn() {
 
   if (imgUrl !== "" && newImageTitle.value !== "") {
     validateBtn.disabled = false;
-    validateBtn.addEventListener("click", () => {
+    validateBtn.addEventListener("click", (event) => {
+      event.preventDefault();
       sendData();
     })
   } else {
@@ -224,12 +225,18 @@ function enableValidateBtn() {
 /* Envoi des nouveaux projets */ 
 
 async function sendData() {
-  
+  const formData = new FormData(uploadANewWork);
+
+  formData.append("id", newImage.id);
+  formData.append("title", newImageTitle.value);
+  formData.append("image", newImage.src);
+  formData.append("categoryId", selectedCategoryId);
+  formData.append("userId", userData.userId);
+
   try {
     const response = await fetch("http://localhost:5678/api/works", {
       method: 'POST',
       headers: {
-        accept: "*/*",
         Authorization: `Bearer ${userData.token}`,
       },
       body: formData,
@@ -241,13 +248,6 @@ async function sendData() {
     console.error("error")
   }
 
-  const formData = new FormData();
-
-  formData.append("id", newImage.id);
-  formData.append("title", title);
-  formData.append("image", newImage.src);
-  formData.append("categoryId", selectedCategoryId);
-  formData.append("userId", userData.userId);
 
 }
 
