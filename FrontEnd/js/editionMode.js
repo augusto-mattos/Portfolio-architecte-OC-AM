@@ -151,7 +151,7 @@ function readImage() {
   if (this.files && this.files[0]) {
       let file = new FileReader();
       file.onload = function(e) {
-          document.querySelector(".preview-img").src = e.target.result;
+          document.querySelector(".preview-img").file = e.target.result;
       };       
       file.readAsDataURL(this.files[0]);
       document.querySelector(".upload-instructions").classList.add("d-none");
@@ -235,6 +235,7 @@ async function sendData() {
     const response = await fetch("http://localhost:5678/api/works", {
       method: 'POST',
       headers: {
+        accept: "application/json",
         Authorization: `Bearer ${userData.token}`,
       },
       body: formData,
@@ -245,8 +246,6 @@ async function sendData() {
   } catch (error) {
     console.error("error")
   }
-
-
 }
 
 /*********************************************************************************/

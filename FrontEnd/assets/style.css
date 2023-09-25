@@ -410,9 +410,8 @@ footer nav ul {
 .works-modal {
   display: flex;
   flex-flow: wrap;
-  justify-content: space-between;
   row-gap: 29px;
-  column-gap: 9px;
+  column-gap: 10px;
   margin: 47px 70px 66px 70px;
 }
 
