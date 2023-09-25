@@ -198,10 +198,10 @@ let selectedCategoryId = "";
 
 const select = document.querySelector("select");
 select.addEventListener("change", function() {
-  const selectedCategoryId = select.options[select.selectedIndex].id.toString();
+  const selectedCategoryId = select.options[select.selectedIndex].id;
   console.log(selectedCategoryId);
 
-  if (selectedCategoryId > "0") {
+  if (selectedCategoryId > 0) {
     enableValidateBtn();
   }
 
@@ -214,7 +214,7 @@ function enableValidateBtn() {
     validateBtn.disabled = false;
     validateBtn.addEventListener("click", (event) => {
       event.preventDefault();
-      sendData();
+      sendData(uploadANewWork);
     })
   } else {
     const erreur = document.querySelector(".erreur-msg-modal");
@@ -227,11 +227,9 @@ function enableValidateBtn() {
 async function sendData() {
   const formData = new FormData(uploadANewWork);
 
-  formData.append("id", newImage.id);
-  formData.append("title", newImageTitle.value);
   formData.append("image", newImage.src);
-  formData.append("categoryId", selectedCategoryId);
-  formData.append("userId", userData.userId);
+  formData.append("title", newImageTitle);
+  formData.append("category", select.options[select.selectedIndex].id);
 
   try {
     const response = await fetch("http://localhost:5678/api/works", {
