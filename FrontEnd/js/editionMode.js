@@ -188,10 +188,10 @@ imgInput.addEventListener("change", function() {
   } 
 });   
 
-const newImageTitle = document.querySelector("#titre");
+let newImageTitle = document.querySelector("#titre");
 newImageTitle.addEventListener("change", function() {
-  title = newImageTitle.value;
-  console.log(title);
+  newImageTitle = newImageTitle.value;
+  console.log(newImageTitle);
 });
 
 let selectedCategoryId = "";
@@ -212,8 +212,9 @@ function enableValidateBtn() {
 
   if (imgUrl !== "" && newImageTitle.value !== "") {
     validateBtn.disabled = false;
-    validateBtn.addEventListener("click", () => {
-      sendData();
+    validateBtn.addEventListener("click", (event) => {
+      event.preventDefault();
+      sendData(uploadANewWork);
     })
   } else {
     const erreur = document.querySelector(".erreur-msg-modal");
@@ -224,12 +225,16 @@ function enableValidateBtn() {
 /* Envoi des nouveaux projets */ 
 
 async function sendData() {
-  
+  const formData = new FormData(uploadANewWork);
+
+  formData.append("image", newImage.src);
+  formData.append("title", newImageTitle);
+  formData.append("category", select.options[select.selectedIndex].id);
+
   try {
     const response = await fetch("http://localhost:5678/api/works", {
       method: 'POST',
       headers: {
-        accept: "*/*",
         Authorization: `Bearer ${userData.token}`,
       },
       body: formData,
@@ -241,13 +246,6 @@ async function sendData() {
     console.error("error")
   }
 
-  const formData = new FormData();
-
-  formData.append("id", newImage.id);
-  formData.append("title", title);
-  formData.append("image", newImage.src);
-  formData.append("categoryId", selectedCategoryId);
-  formData.append("userId", userData.userId);
 
 }
 
