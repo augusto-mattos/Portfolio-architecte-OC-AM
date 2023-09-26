@@ -17,16 +17,19 @@ editionMode();
 
 /* MODAL D'EDITION*/
 const openModalButton = document.querySelector(".edition-btn");
+const bodyOpacity = document.querySelector("#body-opacity");
+
 if (userData !== null) {
   openModalButton.addEventListener("click", function (event) {
     event.preventDefault();
     event.stopPropagation();
+    bodyOpacity.style.display = "flex";
   
     const modal = document.getElementById("edit-modal");
   
     if (modal) {
       modal.classList.add("modal");
-      modal.classList.remove("d-none");
+      modal.style.display = "flex";
       modal.removeAttribute("aria-hidden");
     }
   
@@ -36,13 +39,10 @@ if (userData !== null) {
 
 /* L'ouverture de la modal rajout une div pour changer l'opacité de l'écran et appeller la fonction de création de la modale */
 function showModal() {
-  const body = document.getElementsByTagName("body")[0];
-  const bodyOpacity = document.createElement("div");
-  bodyOpacity.classList.add("body-opacity");
-  bodyOpacity.addEventListener("click", function () {
+  const removeBodyOpacity = document.querySelector("#body-opacity");
+  removeBodyOpacity.addEventListener("click", function () {
     closeModal();
   });
-  body.appendChild(bodyOpacity);
 
   const closeBtn = document.querySelector(".close-btn");
   closeBtn.addEventListener("click", function () {
@@ -105,8 +105,7 @@ fetchAndShowWorksInAModal(createModal);
 async function deleteWork(id) {
   
   try {
-
-    const response = await fetch("http://localhost:5678/api/works/", {
+    const response = await fetch(`http://localhost:5678/api/works/${id}`, {
       method: "DELETE",
       headers: {
         Authorization: `Bearer ${userData.token}`,
@@ -133,17 +132,18 @@ async function deleteWork(id) {
 const ajoutPhotoBtn = document.querySelector(".addPhoto-btn")
 ajoutPhotoBtn.addEventListener("click", function() {
   const step1 = document.querySelector("#modal-step1"); 
-  step1.classList.add("d-none");
+  step1.style.display = "none";
   const step2 = document.querySelector("#modal-step2");
-  step2.classList.remove("d-none");
+  step2.style.display = "flex";
+  step2.style.flexDirection = "column";
 })
 
 const retourBtn = document.querySelector(".retour-btn");
 retourBtn.addEventListener("click", function() {
   const step1 = document.querySelector("#modal-step1"); 
-  step1.classList.remove("d-none");
+  step1.style.display = "flex";
   const step2 = document.querySelector("#modal-step2");
-  step2.classList.add("d-none");
+  step2.style.display = "none";
 })
 
 /* Preview de l'image uploadée */ 
@@ -223,7 +223,6 @@ function enableValidateBtn() {
 }
 
 /* Envoi des nouveaux projets */ 
-
 async function sendData() {
   const formData = new FormData(uploadANewWork);
 
@@ -251,14 +250,13 @@ async function sendData() {
 /*********************************************************************************/
 /* Fermeture de la modale  */
 function closeModal() {
-  const bodyOpacity = document.querySelector(".body-opacity");
+  const bodyOpacity = document.querySelector("#body-opacity");
   const modal = document.querySelector(".modal");
-    bodyOpacity.remove();
-    modal.classList.remove("modal");
-    modal.classList.add("d-none");
+    bodyOpacity.style.display = "none";
     modal.setAttribute("aria-hidden", "true");
-    document.querySelector("#modal-step1").classList.remove("d-none");
-    document.querySelector("#modal-step2").classList.add("d-none");
+    modal.style.display = "none";
+    document.querySelector("#modal-step1").style.display = "";
+    document.querySelector("#modal-step2").style.display = "none";
     document.querySelector(".upload-instructions").classList.remove("d-none");
     document.querySelector(".preview-img").classList.add("d-none");
   };

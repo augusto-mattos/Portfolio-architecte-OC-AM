@@ -160,9 +160,18 @@ li a:hover {
   grid-row-gap: 20px;
 }
 
+.gallery figure {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
 .gallery img {
   width: 100%;
+  height: 407px;
+  object-fit: cover;
 }
+
 #contact {
   width: 50%;
   margin: auto;
@@ -365,7 +374,7 @@ footer nav ul {
   max-height: 16px;
 }
 
-.body-opacity {
+#body-opacity {
   position: fixed;
   top: 0;
   width: 100%;
@@ -381,7 +390,7 @@ footer nav ul {
   gap: 10px;
   padding: 26px 30px;
   top: 100px;
-  width: 570px;
+  width: 630px;
   background-color: white;
   border-radius: 10px;
   z-index: 1;
@@ -399,6 +408,13 @@ footer nav ul {
   cursor: pointer;
 }
 
+#modal-step1 {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0 75px;
+}
+
 #portfolio h3 {
   color: #000;
   text-align: center;
@@ -412,7 +428,13 @@ footer nav ul {
   flex-flow: wrap;
   row-gap: 29px;
   column-gap: 10px;
-  margin: 47px 70px 66px 70px;
+  margin: 47px 0 66px 0;
+  justify-content: space-between;
+}
+
+.works-modal figure {
+  display: flex;
+  position: relative;
 }
 
 .works-modal .work-miniature {
@@ -422,7 +444,7 @@ footer nav ul {
 
 hr {
   border: solid 1px #b3b3b3;
-  width: 420px;
+  width: 100%;
 }
 
 .modal .addPhoto-btn {
@@ -451,9 +473,9 @@ hr {
   height: 15px;
   border: 2px solid;
   border-radius: 2px;
-  position: relative;
-  top: -85%;
-  left: 35%;
+  position: absolute;
+  top: 5%;
+  left: 75%;
   cursor: pointer;
 }
 
@@ -492,7 +514,7 @@ hr {
   flex-direction: column;
   justify-content: center;
   gap: 6px;
-  width: 420px;
+  width: 100%;
   height: 169px;
   flex-shrink: 0;
   border-radius: 3px;
@@ -502,7 +524,7 @@ hr {
 
 #modal-step2 label:first-child input {
   display: none;
-}
+  }
 
 #modal-step2 .upload-instructions {
   text-align: center;
