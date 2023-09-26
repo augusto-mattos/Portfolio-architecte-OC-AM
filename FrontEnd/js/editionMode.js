@@ -54,6 +54,8 @@ async function fetchAndShowWorksInAModal() {
     createModal(works);
   } catch (error) {
     console.error(error);
+    const erreurChargement = document.querySelector(".loading-gallery");
+    erreurChargement.style.display = "flex";
   }
 }
 
