@@ -156,50 +156,47 @@ function readImage() {
   }
   document.querySelector("#image").addEventListener("change", readImage, false);
 
-/* Identification des champs de formulaires remplis */ 
+/* Validation des champs de formulaires */ 
 let imgUrl = "";
+let newImageTitle = "";
+let selectedCategoryId = "";
 
 const imgInput = document.querySelector("#image");
-const newImage = document.querySelector(".preview-img")
-imgInput.addEventListener("change", function() {
+const newImage = document.querySelector(".preview-img");
+const select = document.querySelector("select");
+const validateBtn = document.querySelector(".validatePhoto-btn");
+const erreur = document.querySelector(".erreur-msg-modal");
+
+imgInput.addEventListener("change", function () {
   if (imgInput.files.length > 0) {
     const file = imgInput.files[0];
     imgUrl = URL.createObjectURL(file);
     newImage.src = imgUrl;
-  } 
+  }
 });   
 
-let newImageTitle = document.querySelector("#titre");
-newImageTitle.addEventListener("change", function() {
-  newImageTitle = newImageTitle.value;
+const newImageTitleInput = document.querySelector("#titre");
+newImageTitleInput.addEventListener("change", function () {
+  newImageTitle = newImageTitleInput.value;
 });
 
-let selectedCategoryId = "";
-
-const select = document.querySelector("select");
-select.addEventListener("change", function() {
-  const selectedCategoryId = select.options[select.selectedIndex].id;
-  if (selectedCategoryId > 0) {
-    enableValidateBtn();
-  }
+select.addEventListener("change", function () {
+  selectedCategoryId = select.options[select.selectedIndex].id;
+  enableValidateBtn();
 });
 
 function enableValidateBtn() {
-  const validateBtn = document.querySelector(".validatePhoto-btn");
-  if (imgUrl !== "" && newImageTitle.value !== "") {
+  if (imgUrl !== "" && newImageTitle !== "" && selectedCategoryId > 0) {
     validateBtn.disabled = false;
-    validateBtn.addEventListener("click", (event) => {
-      event.preventDefault();
-      sendData(uploadANewWork);
-    })
   } else {
-    const erreur = document.querySelector(".erreur-msg-modal");
-    erreur.classList.remove("d-none");  
-    setTimeout(function () {
-      erreur.classList.add("d-none");
-    }, 3500)
+    validateBtn.disabled = true;
   }
 }
+
+validateBtn.addEventListener("click", function (event) {
+  event.preventDefault();
+  sendData();
+});
 
 /* Envoi des nouveaux projets */ 
 async function sendData() {
