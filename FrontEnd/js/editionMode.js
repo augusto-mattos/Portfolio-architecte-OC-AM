@@ -1,7 +1,3 @@
-console.log(userData);
-console.log(userData.token);
-console.log(userData.userId);
-
 function editionMode() {
   const blackBarEdition = document.querySelector("#black-bar");
   const modifierBtn = document.querySelector("#edition-btn");
@@ -166,32 +162,16 @@ let imgUrl = "";
 const imgInput = document.querySelector("#image");
 const newImage = document.querySelector(".preview-img")
 imgInput.addEventListener("change", function() {
-  
-  const images = document.querySelectorAll(".gallery img");
-  const lastImg = images[images.length -1];
-  const lastImgId = lastImg.getAttribute("id");
-  console.log(lastImgId);
-
   if (imgInput.files.length > 0) {
     const file = imgInput.files[0];
     imgUrl = URL.createObjectURL(file);
     newImage.src = imgUrl;
-
-    const lastId = parseInt(lastImgId.split('-')[1]);
-    const newId = lastId + 1;
-    const newImageId = newId.toString();
-    newImage.id = newImageId;
-    
-    console.log(newImage.src);
-    console.log(newImage.id);
-
   } 
 });   
 
 let newImageTitle = document.querySelector("#titre");
 newImageTitle.addEventListener("change", function() {
   newImageTitle = newImageTitle.value;
-  console.log(newImageTitle);
 });
 
 let selectedCategoryId = "";
@@ -199,17 +179,13 @@ let selectedCategoryId = "";
 const select = document.querySelector("select");
 select.addEventListener("change", function() {
   const selectedCategoryId = select.options[select.selectedIndex].id;
-  console.log(selectedCategoryId);
-
   if (selectedCategoryId > 0) {
     enableValidateBtn();
   }
-
 });
 
 function enableValidateBtn() {
   const validateBtn = document.querySelector(".validatePhoto-btn");
-
   if (imgUrl !== "" && newImageTitle.value !== "") {
     validateBtn.disabled = false;
     validateBtn.addEventListener("click", (event) => {
@@ -219,7 +195,6 @@ function enableValidateBtn() {
   } else {
     const erreur = document.querySelector(".erreur-msg-modal");
     erreur.classList.remove("d-none");  
-
     setTimeout(function () {
       erreur.classList.add("d-none");
     }, 3500)
