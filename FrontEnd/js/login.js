@@ -27,6 +27,10 @@ form.addEventListener("submit", function (event) {
         // si les coordonées ne sont pas bonnes, il affiche un message d'erreur
         const erreur = document.querySelector(".erreur-msg");
         erreur.classList.remove("d-none");
+
+        setTimeout(function () {
+          erreur.classList.add("d-none");
+        }, 3500);
       }
       return response.json();
     })

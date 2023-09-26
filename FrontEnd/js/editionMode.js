@@ -1,7 +1,3 @@
-console.log(userData);
-console.log(userData.token);
-console.log(userData.userId);
-
 function editionMode() {
   const blackBarEdition = document.querySelector("#black-bar");
   const modifierBtn = document.querySelector("#edition-btn");
@@ -17,16 +13,19 @@ editionMode();
 
 /* MODAL D'EDITION*/
 const openModalButton = document.querySelector(".edition-btn");
+const bodyOpacity = document.querySelector("#body-opacity");
+
 if (userData !== null) {
   openModalButton.addEventListener("click", function (event) {
     event.preventDefault();
     event.stopPropagation();
+    bodyOpacity.style.display = "flex";
   
     const modal = document.getElementById("edit-modal");
   
     if (modal) {
       modal.classList.add("modal");
-      modal.classList.remove("d-none");
+      modal.style.display = "flex";
       modal.removeAttribute("aria-hidden");
     }
   
@@ -36,13 +35,10 @@ if (userData !== null) {
 
 /* L'ouverture de la modal rajout une div pour changer l'opacité de l'écran et appeller la fonction de création de la modale */
 function showModal() {
-  const body = document.getElementsByTagName("body")[0];
-  const bodyOpacity = document.createElement("div");
-  bodyOpacity.classList.add("body-opacity");
-  bodyOpacity.addEventListener("click", function () {
+  const removeBodyOpacity = document.querySelector("#body-opacity");
+  removeBodyOpacity.addEventListener("click", function () {
     closeModal();
   });
-  body.appendChild(bodyOpacity);
 
   const closeBtn = document.querySelector(".close-btn");
   closeBtn.addEventListener("click", function () {
@@ -105,8 +101,7 @@ fetchAndShowWorksInAModal(createModal);
 async function deleteWork(id) {
   
   try {
-
-    const response = await fetch("http://localhost:5678/api/works/", {
+    const response = await fetch(`http://localhost:5678/api/works/${id}`, {
       method: "DELETE",
       headers: {
         Authorization: `Bearer ${userData.token}`,
@@ -133,17 +128,18 @@ async function deleteWork(id) {
 const ajoutPhotoBtn = document.querySelector(".addPhoto-btn")
 ajoutPhotoBtn.addEventListener("click", function() {
   const step1 = document.querySelector("#modal-step1"); 
-  step1.classList.add("d-none");
+  step1.style.display = "none";
   const step2 = document.querySelector("#modal-step2");
-  step2.classList.remove("d-none");
+  step2.style.display = "flex";
+  step2.style.flexDirection = "column";
 })
 
 const retourBtn = document.querySelector(".retour-btn");
 retourBtn.addEventListener("click", function() {
   const step1 = document.querySelector("#modal-step1"); 
-  step1.classList.remove("d-none");
+  step1.style.display = "flex";
   const step2 = document.querySelector("#modal-step2");
-  step2.classList.add("d-none");
+  step2.style.display = "none";
 })
 
 /* Preview de l'image uploadée */ 
@@ -160,70 +156,49 @@ function readImage() {
   }
   document.querySelector("#image").addEventListener("change", readImage, false);
 
-/* Identification des champs de formulaires remplis */ 
+/* Validation des champs de formulaires */ 
 let imgUrl = "";
+let newImageTitle = "";
+let selectedCategoryId = "";
 
 const imgInput = document.querySelector("#image");
-const newImage = document.querySelector(".preview-img")
-imgInput.addEventListener("change", function() {
-  
-  const images = document.querySelectorAll(".gallery img");
-  const lastImg = images[images.length -1];
-  const lastImgId = lastImg.getAttribute("id");
-  console.log(lastImgId);
+const newImage = document.querySelector(".preview-img");
+const select = document.querySelector("select");
+const validateBtn = document.querySelector(".validatePhoto-btn");
+const erreur = document.querySelector(".erreur-msg-modal");
 
+imgInput.addEventListener("change", function () {
   if (imgInput.files.length > 0) {
     const file = imgInput.files[0];
     imgUrl = URL.createObjectURL(file);
     newImage.src = imgUrl;
-
-    const lastId = parseInt(lastImgId.split('-')[1]);
-    const newId = lastId + 1;
-    const newImageId = newId.toString();
-    newImage.id = newImageId;
-    
-    console.log(newImage.src);
-    console.log(newImage.id);
-
-  } 
+  }
 });   
 
-let newImageTitle = document.querySelector("#titre");
-newImageTitle.addEventListener("change", function() {
-  newImageTitle = newImageTitle.value;
-  console.log(newImageTitle);
+const newImageTitleInput = document.querySelector("#titre");
+newImageTitleInput.addEventListener("change", function () {
+  newImageTitle = newImageTitleInput.value;
 });
 
-let selectedCategoryId = "";
-
-const select = document.querySelector("select");
-select.addEventListener("change", function() {
-  const selectedCategoryId = select.options[select.selectedIndex].id;
-  console.log(selectedCategoryId);
-
-  if (selectedCategoryId > 0) {
-    enableValidateBtn();
-  }
-
+select.addEventListener("change", function () {
+  selectedCategoryId = select.options[select.selectedIndex].id;
+  enableValidateBtn();
 });
 
 function enableValidateBtn() {
-  const validateBtn = document.querySelector(".validatePhoto-btn");
-
-  if (imgUrl !== "" && newImageTitle.value !== "") {
+  if (imgUrl !== "" && newImageTitle !== "" && selectedCategoryId > 0) {
     validateBtn.disabled = false;
-    validateBtn.addEventListener("click", (event) => {
-      event.preventDefault();
-      sendData(uploadANewWork);
-    })
   } else {
-    const erreur = document.querySelector(".erreur-msg-modal");
-    erreur.classList.remove("d-none");  
+    validateBtn.disabled = true;
   }
 }
 
-/* Envoi des nouveaux projets */ 
+validateBtn.addEventListener("click", function (event) {
+  event.preventDefault();
+  sendData();
+});
 
+/* Envoi des nouveaux projets */ 
 async function sendData() {
   const formData = new FormData(uploadANewWork);
 
@@ -251,14 +226,14 @@ async function sendData() {
 /*********************************************************************************/
 /* Fermeture de la modale  */
 function closeModal() {
-  const bodyOpacity = document.querySelector(".body-opacity");
+  const bodyOpacity = document.querySelector("#body-opacity");
   const modal = document.querySelector(".modal");
-    bodyOpacity.remove();
-    modal.classList.remove("modal");
-    modal.classList.add("d-none");
+    bodyOpacity.style.display = "none";
     modal.setAttribute("aria-hidden", "true");
-    document.querySelector("#modal-step1").classList.remove("d-none");
-    document.querySelector("#modal-step2").classList.add("d-none");
+    modal.style.display = "none";
+    document.querySelector("#modal-step1").style.display = "";
+    document.querySelector("#modal-step2").style.display = "none";
     document.querySelector(".upload-instructions").classList.remove("d-none");
     document.querySelector(".preview-img").classList.add("d-none");
+    document.querySelector("form").reset();
   };
