@@ -219,6 +219,10 @@ function enableValidateBtn() {
   } else {
     const erreur = document.querySelector(".erreur-msg-modal");
     erreur.classList.remove("d-none");  
+
+    setTimeout(function () {
+      erreur.classList.add("d-none");
+    }, 3500)
   }
 }
 
