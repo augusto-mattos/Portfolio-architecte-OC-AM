@@ -259,4 +259,5 @@ function closeModal() {
     document.querySelector("#modal-step2").style.display = "none";
     document.querySelector(".upload-instructions").classList.remove("d-none");
     document.querySelector(".preview-img").classList.add("d-none");
+    document.querySelector("form").reset();
   };
