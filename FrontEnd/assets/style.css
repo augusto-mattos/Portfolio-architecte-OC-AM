@@ -160,8 +160,8 @@ li a:hover {
 }
 
 .gallery {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
   max-width: 955px;
   gap: 20px;
 }
