@@ -54,8 +54,6 @@ async function fetchAndShowWorksInAModal() {
     createModal(works);
   } catch (error) {
     console.error(error);
-    const erreurChargement = document.querySelector(".loading-gallery");
-    erreurChargement.style.display = "flex";
   }
 }
 
@@ -63,18 +61,18 @@ function createModal(works) {
   const worksInModal = document.querySelector(".works-modal");
   for (let i = 0; i < works.length; i++) {
     const figure = works[i];
-
+    
     const figureWorks = document.createElement("figure");
     figureWorks.classList.add("category-" + figure.categoryId);
     figureWorks.classList.add("work-" + figure.id);
     worksInModal.appendChild(figureWorks);
-
+    
     const workImg = document.createElement("img");
     workImg.classList.add("work-miniature");
     workImg.src = figure.imageUrl;
     workImg.classList.add("work-" + figure.id);
     figureWorks.appendChild(workImg);
-
+    
     const buttonDelWork = document.createElement("button");
     buttonDelWork.classList.add("del-btn");
     buttonDelWork.type = "button";
@@ -88,7 +86,7 @@ function createModal(works) {
       deleteWork(workId);
     });
     figureWorks.appendChild(buttonDelWork);
-
+    
     const delIcon = document.createElement("img");
     delIcon.classList.add("del-icon");
     delIcon.src = "./assets/icons/trash-can-solid.svg";
@@ -96,7 +94,7 @@ function createModal(works) {
   }
 }
 
-fetchAndShowWorksInAModal(createModal);
+fetchAndShowWorksInAModal();
 
 /*********************************************************************************/
 /* SUPPRESSION DE L'IMAGE */
@@ -193,12 +191,12 @@ function enableValidateBtn() {
   } else {
     validateBtn.disabled = true;
   }
+  validateBtn.addEventListener("click", function (event) {
+    event.preventDefault();
+    event.stopPropagation();
+    sendData();
+  });
 }
-
-validateBtn.addEventListener("click", function (event) {
-  event.preventDefault();
-  sendData();
-});
 
 /* Envoi des nouveaux projets */ 
 async function sendData() {
@@ -219,7 +217,6 @@ async function sendData() {
     });
     const result = await response.json();
     console.log("Success:", result);
-    
   } catch (error) {
     console.error("error")
   }
