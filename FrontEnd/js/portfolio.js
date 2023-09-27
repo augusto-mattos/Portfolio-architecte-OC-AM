@@ -1,5 +1,5 @@
 const userDataString = window.localStorage.getItem("userData");
-const userData = JSON.parse(userDataString); 
+const userData = JSON.parse(userDataString);
 
 /* Cette fonction fait une requette pour obtenir les données depuis l'API et affiche la fonction qui manipule le DOM. Le catch affichera un message en cas d'erreur */
 async function fetchAndShowWorks() {
@@ -9,6 +9,8 @@ async function fetchAndShowWorks() {
     createGallery(works);
   } catch (error) {
     console.error(error);
+    const erreurChargement = document.querySelector(".loading-gallery");
+    erreurChargement.style.display = "flex";
   }
 }
 
@@ -34,9 +36,6 @@ function createGallery(works) {
   }
 }
 
-/* Ici la fonction principale est appelée pour afficher les éléments sur la page */
-fetchAndShowWorks(createGallery);
-
 /* Cette fonction fait une requette pour obtenir les informations des categories depuis l'API et affiche la fonction qui manipule le DOM. Le catch affichera un message en cas d'erreur */
 async function fetchAndShowCategory() {
   try {
@@ -45,25 +44,24 @@ async function fetchAndShowCategory() {
 
     createFilters(categories);
     categoryInput(categories);
-    
   } catch (error) {
     console.error(error);
   }
 }
 
-/* Cette fonction montre les categories pour exhiber les catégories dans le champ de selection de la modale. */ 
+/* Cette fonction montre les categories pour exhiber les catégories dans le champ de selection de la modale. */
 function categoryInput(categories) {
   const selectElement = document.getElementById("categoryList");
-    
+
   for (let c = 0; c < categories.length; c++) {
     const category = categories[c];
-    
+
     const options = document.createElement("option");
     options.id = category.id;
     options.innerText = category.name;
     selectElement.appendChild(options);
   }
-};
+}
 
 /* Cette fontion manipule le DOM pour créer les boutons qui serviront des filtres par categorie. La boucle for parcourt les données obtenues et créer les éléments html pour chaque index identifié dans l'array. Dans la boucle il y a aussi les eventListeners qui suppriment ou ajoutent une classe aux boutons */
 function createFilters(categories) {
@@ -102,9 +100,6 @@ function createFilters(categories) {
   }
 }
 
-/* Ici la fonction principale est appelée pour afficher les éléments sur la page */
-fetchAndShowCategory(createFilters);
-
 /* Cette fonction supprime la classe selected des tous les filtres */
 function resetFilters() {
   const filters = document.querySelectorAll(".filters button");
@@ -132,3 +127,9 @@ function updateGallery() {
     });
   }
 }
+
+function initializePage() {
+  fetchAndShowWorks();
+  fetchAndShowCategory();
+}
+window.addEventListener("load", initializePage);
