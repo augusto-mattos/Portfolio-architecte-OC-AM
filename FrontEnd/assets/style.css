@@ -120,6 +120,13 @@ li a:hover {
 #introduction p {
   margin-bottom: 0.5em;
 }
+
+#portfolio {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 #portfolio h2 {
   text-align: center;
   margin: 89px 0 16px 0;
@@ -153,15 +160,14 @@ li a:hover {
 }
 
 .gallery {
-  width: 100%;
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  grid-column-gap: 20px;
-  grid-row-gap: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  max-width: 955px;
+  gap: 20px;
 }
 
 .gallery img {
-  width: 100%;
+  width: 305px;
   height: 407px;
   object-fit: cover;
 }
