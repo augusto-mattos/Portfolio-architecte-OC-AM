@@ -153,15 +153,14 @@ li a:hover {
 }
 
 .gallery {
-  width: 100%;
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  grid-column-gap: 20px;
-  grid-row-gap: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
 }
 
 .gallery img {
-  width: 100%;
+  width: 305px;
   height: 407px;
   object-fit: cover;
 }
