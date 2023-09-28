@@ -22,17 +22,12 @@ form.addEventListener("submit", function (event) {
     .then(function (response) {
       // si les coordonées user sont ok et correspondent aux infos qui sont dans l'API, l'utilisateur est redirigé vers une autre page
       if (response.ok) {
-        window.location.href = "./index.html";
+        return response.json();
       } else {
         // si les coordonées ne sont pas bonnes, il affiche un message d'erreur
         const erreur = document.querySelector(".erreur-msg");
         erreur.classList.remove("d-none");
-
-        setTimeout(function () {
-          erreur.classList.add("d-none");
-        }, 3500);
       }
-      return response.json();
     })
     // dans la fonction suivante le localStorage sauvegarde le donées de l'utilisateur
     .then(function (data) {
@@ -41,5 +36,6 @@ form.addEventListener("submit", function (event) {
         token: data.token,
       };
       window.localStorage.setItem("userData", JSON.stringify(userData));
+      window.location.href = "./index.html";
     });
 });
