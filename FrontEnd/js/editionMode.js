@@ -144,10 +144,7 @@ ajoutPhotoBtn.addEventListener("click", function () {
 
 const retourBtn = document.querySelector(".retour-btn");
 retourBtn.addEventListener("click", function () {
-  const step1 = document.querySelector("#modal-step1");
-  step1.style.display = "flex";
-  const step2 = document.querySelector("#modal-step2");
-  step2.style.display = "none";
+  resetModalForm();
 });
 
 /* Preview de l'image uploadée */
@@ -200,14 +197,16 @@ function enableValidateBtn() {
   validateBtn.addEventListener("click", function (event) {
     event.preventDefault();
     event.stopPropagation();
-    sendData();
+    sendData(event);
   });
 }
 
 const erreur = document.querySelector(".erreur-msg-modal"); // A CONFIRMER
 
 /* Envoi des nouveaux projets */
-async function sendData() {
+async function sendData(event) {
+  event.preventDefault();
+
   const formData = new FormData(uploadANewWork);
 
   formData.append("image", newImage.src);
@@ -223,11 +222,30 @@ async function sendData() {
       },
       body: formData,
     });
-    const result = await response.json();
-    console.log("Success:", result);
+    console.log(response.status);
+    alert("réponse ok");
+    if (response.status === 201) {
+      const result = await response.json();
+      console.log("Success:", result);
+      alert("la réponse est bien 201 !");
+      resetModalForm();
+    } else {
+      alert("erreur");
+      console.error("Error:", response.status);
+    }
   } catch (error) {
     console.error("error");
   }
+}
+
+/* Nettoye le formulaire de la modale et reviens à l'etape 1, sans la fermer. A utiliser après l'envoi d'une image et dans le bouton de retour */
+function resetModalForm() {
+  document.querySelector("#modal-step1").style.display = "";
+  document.querySelector("#modal-step2").style.display = "none";
+  document.querySelector(".upload-instructions").classList.remove("d-none");
+  document.querySelector(".preview-img").classList.add("d-none");
+  document.querySelector("form").reset();
+  alert("retour ok");
 }
 
 /*********************************************************************************/
