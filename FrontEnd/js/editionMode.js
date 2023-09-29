@@ -118,18 +118,17 @@ function deleteWork(id) {
       Authorization: `Bearer ${userData.token}`,
     },
   }).then(function (response) {
-    console.log(response);
-  });
-  /* if (response.status === 200) {
-      console.log("Item Deleted (200)");
+    if (response.status === 204) {
+      console.log("Item Deleted");
       const workElement = document.querySelector(".work-" + id);
       if (workElement) {
         workElement.remove();
       }
-    }
-    else if (response.status === 401) {
+      console.log("here");
+    } else if (response.status === 401) {
       console.log("Error: Unauthorized (401)");
-    } */
+    }
+  });
 }
 
 /*********************************************************************************/
