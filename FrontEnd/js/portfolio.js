@@ -88,13 +88,13 @@ function createFilters(categories) {
       buttonFilters.addEventListener("click", () => {
         resetFilters();
         buttonFilters.classList.add("selected");
-        updateGallery();
+        filterGallery();
       });
 
       buttonAll.addEventListener("click", () => {
         resetFilters();
         buttonAll.classList.add("selected");
-        updateGallery();
+        filterGallery();
       });
     }
   }
@@ -107,7 +107,7 @@ function resetFilters() {
 }
 
 /* Cette fonction prend tous les éléments qui ont la classe selected, c'est à dire le filtre selectionné. Ensuite j'identifie l'id du filtre selectionné dans la const filterId. Ensuite j'identifie toutes les figures dans la const figures pour pouvoir travailler les conditions. SI l'id du filtre selectionné est égal à "all", je supprime la classe d-none de toutes les figures. ELSE, je verifie pour chaque image SI la classe de la figure correspond/contient l'id du filtre. Si oui, la classe d-none est supprimée pour que l'image puisse être affichée, sinon la classe de la figure ne correspond pas à l'id du filtre, j'ajoute la classe d-none pour cacher la figure de la galerie  */
-function updateGallery() {
+function filterGallery() {
   const selectedFilter = document.querySelector(".selected");
   const filterId = selectedFilter.id;
 
