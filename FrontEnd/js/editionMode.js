@@ -229,6 +229,7 @@ async function sendData(event) {
       console.log("Success:", result);
       alert("la réponse est bien 201 !");
       resetModalForm();
+      updateModalWorks();
     } else {
       alert("erreur");
       console.error("Error:", response.status);
@@ -238,7 +239,7 @@ async function sendData(event) {
   }
 }
 
-/* Nettoye le formulaire de la modale et reviens à l'etape 1, sans la fermer. A utiliser après l'envoi d'une image et dans le bouton de retour */
+/* Nettoye le formulaire de la modale de l'etape 2 et reviens à l'etape 1, sans la fermer. A utiliser après l'envoi d'une image et dans le bouton de retour */
 function resetModalForm() {
   document.querySelector("#modal-step1").style.display = "";
   document.querySelector("#modal-step2").style.display = "none";
@@ -246,6 +247,14 @@ function resetModalForm() {
   document.querySelector(".preview-img").classList.add("d-none");
   document.querySelector("form").reset();
   alert("retour ok");
+}
+
+function updateModalWorks() {
+  const worksInModal = document.querySelector(".works-modal");
+  while (worksInModal.firstChild) {
+    worksInModal.removeChild(worksInModal.firstChild);
+  }
+  fetchAndShowWorksInAModal();
 }
 
 /*********************************************************************************/
