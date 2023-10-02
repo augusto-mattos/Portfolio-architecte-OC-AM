@@ -1,6 +1,6 @@
 {
     "liveServer.settings.ignoreFiles": [
-        "**/*.sqlite",
+        "Backend/**",
         ".vscode/**",
         "**/*.scss",
         "**/*.sass",
