@@ -29,33 +29,9 @@ if (userData !== null) {
       modal.removeAttribute("aria-hidden");
     }
 
-    showModal();
+    openModal();
   });
 }
-
-/* L'ouverture de la modal rajout une div pour changer l'opacité de l'écran et appeller la fonction de création de la modale */
-function showModal() {
-  const removeBodyOpacity = document.querySelector("#body-opacity");
-  removeBodyOpacity.addEventListener("click", function () {
-    fetch("http://localhost:5678/api/works"), closeModal();
-  });
-
-  const closeBtn = document.querySelector(".close-btn");
-  closeBtn.addEventListener("click", function () {
-    closeModal();
-  });
-}
-
-/* Création de la modale */
-/* async function fetchAndShowWorksInAModal() {
-  try {
-    const response = await fetch("http://localhost:5678/api/works");
-    const works = await response.json();
-    createModal(works);
-  } catch (error) {
-    console.error(error);
-  }
-} */
 
 function fetchAndShowWorksInAModal() {
   fetch("http://localhost:5678/api/works")
@@ -64,11 +40,35 @@ function fetchAndShowWorksInAModal() {
       return response.json();
     })
     .then(function (works) {
-      createModal(works);
+      showWorks(works);
     });
 }
 
-function createModal(works) {
+/* L'ouverture de la modal ajoute des evenements pour appeler sa fermeture et fait aussi appel à la fonction qui met à jour les images de la modale à chaque ouverture */
+function updateModalWorks() {
+  const worksInModal = document.querySelector(".works-modal");
+  worksInModal.innerHTML = "";
+  fetchAndShowWorksInAModal();
+}
+
+const removeBodyOpacity = document.querySelector("#body-opacity");
+removeBodyOpacity.addEventListener("click", function () {
+  closeModal();
+});
+
+const closeBtn = document.querySelector(".close-btn");
+closeBtn.addEventListener("click", function () {
+  closeModal();
+});
+
+function openModal() {
+  updateModalWorks();
+  removeBodyOpacity;
+  closeBtn;
+}
+
+// Dans cette fonction sont créés tous les éléments qui font partie de la gallery de la modale, y compris les boutons de suppression d'image
+function showWorks(works) {
   const worksInModal = document.querySelector(".works-modal");
   for (let i = 0; i < works.length; i++) {
     const figure = works[i];
@@ -89,7 +89,6 @@ function createModal(works) {
     buttonDelWork.type = "button";
     buttonDelWork.id = "work-" + figure.id;
     buttonDelWork.addEventListener("click", function (event) {
-      // EVENEMENT QUI APPELLE LA FONCTION DELETEWORK
       event.preventDefault();
       event.stopPropagation();
       const buttonId = event.currentTarget.id;
@@ -105,13 +104,8 @@ function createModal(works) {
   }
 }
 
-fetchAndShowWorksInAModal();
-
-/*********************************************************************************/
 /* SUPPRESSION DE L'IMAGE */
 function deleteWork(id) {
-  console.log("deleteWork", id);
-
   fetch(`http://localhost:5678/api/works/${id}`, {
     method: "DELETE",
     headers: {
@@ -119,20 +113,17 @@ function deleteWork(id) {
     },
   }).then(function (response) {
     if (response.status === 204) {
-      console.log("Item Deleted");
       const workElement = document.querySelector(".work-" + id);
       if (workElement) {
         workElement.remove();
       }
-      console.log("here");
     } else if (response.status === 401) {
       console.log("Error: Unauthorized (401)");
     }
   });
 }
 
-/*********************************************************************************/
-/* AJOUTER UNE IMAGE */
+/* Passer à l'étape 2 de la modale pour AJOUTER UNE IMAGE */
 const ajoutPhotoBtn = document.querySelector(".addPhoto-btn");
 ajoutPhotoBtn.addEventListener("click", function () {
   const step1 = document.querySelector("#modal-step1");
@@ -161,7 +152,7 @@ function readImage() {
 }
 document.querySelector("#image").addEventListener("change", readImage, false);
 
-/* Validation des champs de formulaires */
+/* Validation des champs du formulaire pour l'envoi d'une nouvelle image */
 let imgUrl = "";
 let newImageTitle = "";
 let selectedCategoryId = "";
@@ -188,17 +179,18 @@ select.addEventListener("change", function () {
 });
 
 const validateBtn = document.querySelector(".validatePhoto-btn");
+validateBtn.addEventListener("click", function (event) {
+  event.preventDefault();
+  event.stopPropagation();
+  sendData(event);
+});
+
 function enableValidateBtn() {
   if (imgUrl !== "" && newImageTitle !== "" && selectedCategoryId > 0) {
     validateBtn.disabled = false;
   } else {
     validateBtn.disabled = true;
   }
-  validateBtn.addEventListener("click", function (event) {
-    event.preventDefault();
-    event.stopPropagation();
-    sendData(event);
-  });
 }
 
 const erreur = document.querySelector(".erreur-msg-modal"); // A CONFIRMER
@@ -223,15 +215,11 @@ async function sendData(event) {
       body: formData,
     });
     console.log(response.status);
-    alert("réponse ok");
     if (response.status === 201) {
       const result = await response.json();
       console.log("Success:", result);
-      alert("la réponse est bien 201 !");
-      resetModalForm();
-      updateModalWorks();
+      closeModal();
     } else {
-      alert("erreur");
       console.error("Error:", response.status);
     }
   } catch (error) {
@@ -246,18 +234,15 @@ function resetModalForm() {
   document.querySelector(".upload-instructions").classList.remove("d-none");
   document.querySelector(".preview-img").classList.add("d-none");
   document.querySelector("form").reset();
-  alert("retour ok");
 }
 
-function updateModalWorks() {
-  const worksInModal = document.querySelector(".works-modal");
-  while (worksInModal.firstChild) {
-    worksInModal.removeChild(worksInModal.firstChild);
-  }
-  fetchAndShowWorksInAModal();
+// Mise à jour de la gallery d'images. A appeler quand la modale est fermée.
+function updateGallery() {
+  const worksInGallery = document.querySelector(".gallery");
+  worksInGallery.innerHTML = "";
+  fetchAndShowWorks();
 }
 
-/*********************************************************************************/
 /* Fermeture de la modale  */
 function closeModal() {
   const bodyOpacity = document.querySelector("#body-opacity");
@@ -265,9 +250,6 @@ function closeModal() {
   bodyOpacity.style.display = "none";
   modal.setAttribute("aria-hidden", "true");
   modal.style.display = "none";
-  document.querySelector("#modal-step1").style.display = "";
-  document.querySelector("#modal-step2").style.display = "none";
-  document.querySelector(".upload-instructions").classList.remove("d-none");
-  document.querySelector(".preview-img").classList.add("d-none");
-  document.querySelector("form").reset();
+  resetModalForm();
+  updateGallery();
 }
