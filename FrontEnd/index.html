@@ -71,30 +71,35 @@
 							<button class="retour-btn"><img src="./assets/icons/arrow-left-solid.svg"
 									alt="bouton de retour à l'étape précedente"></button>
 							<h3>Ajout Photo</h3>
-								<form action="http://localhost:5678/api/works/" method="post" enctype="multipart/form-data" name="uploadANewWork">
-									<label for="image">
-										<span class="upload-instructions">
-											<img src="./assets/icons/picture-svgrepo-com.svg" alt="upload d'un nouveau travail">										
-											<span class="uploadPhoto-btn">+ Ajouter photo</span>
-											<span>jpg, png : 4mo max</span>
-										</span>
-										<img class="preview-img d-none" alt="preview de l'image selectionée" src="">
-										<input type="file" name="image" id="image" accept="image/png, image/jpeg" required>
-									</label>
+							<form action="http://localhost:5678/api/works/" method="post" enctype="multipart/form-data"
+								name="uploadANewWork">
+								<label for="image">
+									<span class="upload-instructions">
+										<img src="./assets/icons/picture-svgrepo-com.svg"
+											alt="upload d'un nouveau travail">
+										<span class="uploadPhoto-btn">+ Ajouter photo</span>
+										<span>jpg, png : 4mo max</span>
+									</span>
+									<img class="preview-img d-none" alt="preview de l'image selectionée" src="">
+									<input type="file" name="image" id="image" accept="image/png, image/jpeg" required>
+								</label>
 
-									<label for="titre">Titre</label>
-									<input type="text" name="titre" id="titre" value="" required>
-									
-									<label for="categoryList">Catégorie</label>
-									<select id="categoryList" required>
-										<option value="">Choisissez une catégorie</option>
-									</select>
-									
-									<hr>
-									
-									<button type="submit" class="validatePhoto-btn" disabled>Valider</button>
-								</form>
-								<p class="erreur-msg d-none"><span><img src="./assets/icons/triangle-exclamation-solid.svg" alt="Icone pour le message d'erreur"></span>Le formulaire n’est pas correctement rempli !</p>
+								<label for="titre">Titre</label>
+								<input type="text" name="titre" id="titre" value="" required>
+
+								<label for="categoryList">Catégorie</label>
+								<select id="categoryList" required>
+									<option value="">Choisissez une catégorie</option>
+								</select>
+
+								<hr>
+
+								<button type="submit" class="validatePhoto-btn" disabled>Valider</button>
+							</form>
+							<p class="erreur-msg-modal d-none"><span><img
+										src="./assets/icons/triangle-exclamation-solid.svg"
+										alt="Icone pour le message d'erreur"></span>Le formulaire n’est pas correctement
+								rempli !</p>
 						</div>
 					</aside>
 					<h2>Mes projets</h2>
@@ -104,7 +109,9 @@
 				</div>
 				<div class="filters"></div>
 				<div class="gallery"></div>
-				<div class="erreur-msg loading-gallery" style="display: none;"><p>Un problème est survenu lors du chargement des images</p></div>
+				<div class="erreur-msg loading-gallery" style="display: none;">
+					<p>Un problème est survenu lors du chargement des images</p>
+				</div>
 			</section>
 			<section id="contact">
 				<h2>Contact</h2>

@@ -168,7 +168,7 @@ imgInput.addEventListener("change", function () {
 });
 
 const newImageTitleInput = document.querySelector("#titre");
-newImageTitleInput.addEventListener("change", function () {
+newImageTitleInput.addEventListener("keyup", function () {
   newImageTitle = newImageTitleInput.value;
 });
 
@@ -190,10 +190,10 @@ function enableValidateBtn() {
     validateBtn.disabled = false;
   } else {
     validateBtn.disabled = true;
+    const erreur = document.querySelector(".erreur-msg-modal");
+    erreur.classList.remove("d-none");
   }
 }
-
-const erreur = document.querySelector(".erreur-msg-modal"); // A CONFIRMER
 
 /* Envoi des nouveaux projets */
 async function sendData(event) {
