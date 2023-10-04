@@ -61,10 +61,14 @@ closeBtn.addEventListener("click", function () {
   closeModal();
 });
 
+const erreurModal = document.querySelector(".erreur-msg-modal");
+
 function openModal() {
   updateModalWorks();
   removeBodyOpacity;
   closeBtn;
+  validateBtn.disabled = true;
+  erreurModal.classList.add("d-none");
 }
 
 // Dans cette fonction sont créés tous les éléments qui font partie de la gallery de la modale, y compris les boutons de suppression d'image
@@ -165,17 +169,21 @@ imgInput.addEventListener("change", function () {
     imgUrl = URL.createObjectURL(file);
     newImage.src = imgUrl;
   }
+  validateBtn.disabled = false;
 });
 
 const newImageTitleInput = document.querySelector("#titre");
 newImageTitleInput.addEventListener("keyup", function () {
   newImageTitle = newImageTitleInput.value;
+  validateBtn.disabled = false;
+  validateForm();
 });
 
 const select = document.querySelector("select");
 select.addEventListener("change", function () {
   selectedCategoryId = select.options[select.selectedIndex].id;
-  enableValidateBtn();
+  validateBtn.disabled = false;
+  validateForm();
 });
 
 const validateBtn = document.querySelector(".validatePhoto-btn");
@@ -185,15 +193,13 @@ validateBtn.addEventListener("click", function (event) {
   sendData(event);
 });
 
-function enableValidateBtn() {
+function validateForm() {
   if (imgUrl !== "" && newImageTitle !== "" && selectedCategoryId > 0) {
-    validateBtn.disabled = false;
+    erreurModal.classList.add("d-none");
   } else {
-    validateBtn.disabled = true;
-    const erreur = document.querySelector(".erreur-msg-modal");
-    erreur.classList.remove("d-none");
+    erreurModal.classList.remove("d-none");
   }
-}
+};
 
 /* Envoi des nouveaux projets */
 async function sendData(event) {
@@ -221,6 +227,8 @@ async function sendData(event) {
       closeModal();
     } else {
       console.error("Error:", response.status);
+      erreurModal.classList.remove("d-none");
+      validateBtn.disabled = true;
     }
   } catch (error) {
     console.error("error");
