@@ -245,8 +245,11 @@ footer nav ul {
 }
 
 #portfolio .erreur-msg-modal {
-  position: relative;
-  top: -125px;
+  justify-content: center;
+  position: absolute;
+  top: 575px;
+  width: 570px;
+  padding: 8px 0;
 }
 
 #login .erreur-msg,

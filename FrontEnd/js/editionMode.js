@@ -68,7 +68,7 @@ function openModal() {
   removeBodyOpacity;
   closeBtn;
   validateBtn.disabled = true;
-  erreurModal.classList.add("d-none");
+  erreurModal.style.display = "none";
 }
 
 // Dans cette fonction sont créés tous les éléments qui font partie de la gallery de la modale, y compris les boutons de suppression d'image
@@ -90,7 +90,6 @@ function showWorks(works) {
 
     const buttonDelWork = document.createElement("button");
     buttonDelWork.classList.add("del-btn");
-    buttonDelWork.type = "button";
     buttonDelWork.id = "work-" + figure.id;
     buttonDelWork.addEventListener("click", function (event) {
       event.preventDefault();
@@ -176,14 +175,18 @@ const newImageTitleInput = document.querySelector("#titre");
 newImageTitleInput.addEventListener("keyup", function () {
   newImageTitle = newImageTitleInput.value;
   validateBtn.disabled = false;
-  validateForm();
+  if (erreurModal.style.display === "flex") {
+    validateForm();
+  }
 });
 
 const select = document.querySelector("select");
 select.addEventListener("change", function () {
   selectedCategoryId = select.options[select.selectedIndex].id;
   validateBtn.disabled = false;
-  validateForm();
+  if (erreurModal.style.display === "flex") {
+    validateForm();
+  }
 });
 
 const validateBtn = document.querySelector(".validatePhoto-btn");
@@ -195,9 +198,9 @@ validateBtn.addEventListener("click", function (event) {
 
 function validateForm() {
   if (imgUrl !== "" && newImageTitle !== "" && selectedCategoryId > 0) {
-    erreurModal.classList.add("d-none");
+    erreurModal.style.display = "none";
   } else {
-    erreurModal.classList.remove("d-none");
+    erreurModal.style.display = "flex";
   }
 };
 
@@ -227,7 +230,7 @@ async function sendData(event) {
       closeModal();
     } else {
       console.error("Error:", response.status);
-      erreurModal.classList.remove("d-none");
+      erreurModal.style.display = "flex";      
       validateBtn.disabled = true;
     }
   } catch (error) {
@@ -242,6 +245,8 @@ function resetModalForm() {
   document.querySelector(".upload-instructions").classList.remove("d-none");
   document.querySelector(".preview-img").classList.add("d-none");
   document.querySelector("form").reset();
+  newImageTitle = "";
+  newImageTitleInput.value = "";
 }
 
 // Mise à jour de la gallery d'images. A appeler quand la modale est fermée.
