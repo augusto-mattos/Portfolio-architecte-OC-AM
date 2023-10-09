@@ -36,6 +36,6 @@ form.addEventListener("submit", function (event) {
         token: data.token,
       };
       window.localStorage.setItem("userData", JSON.stringify(userData));
-      window.location.href = "./index.html";
+      window.location.href = "../../index.html";
     });
 });

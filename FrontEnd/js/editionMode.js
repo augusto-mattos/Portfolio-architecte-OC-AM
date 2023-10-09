@@ -102,7 +102,7 @@ function showWorks(works) {
 
     const delIcon = document.createElement("img");
     delIcon.classList.add("del-icon");
-    delIcon.src = "./assets/icons/trash-can-solid.svg";
+    delIcon.src = "./FrontEnd/assets/icons/trash-can-solid.svg";
     buttonDelWork.appendChild(delIcon);
   }
 }
