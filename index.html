@@ -11,12 +11,12 @@
 		href="https://fonts.googleapis.com/css2?family=Syne:wght@500;700;800&family=Work+Sans:wght@400;500;600;700&display=swap"
 		rel="stylesheet">
 	<meta name="description" content="">
-	<link rel="stylesheet" href="./assets/style.css">
+	<link rel="stylesheet" href="./FrontEnd/assets/style.css">
 </head>
 
 <body>
 	<div class="d-none" id="black-bar">
-		<img src="./assets/icons/edit_button.svg" alt="button d'édition"> Mode édition
+		<img src="./FrontEnd/assets/icons/edit_button.svg" alt="button d'édition"> Mode édition
 	</div>
 	<div id="body-opacity" style="display: none"></div>
 	<div class="main-container">
@@ -36,14 +36,14 @@
 					<li class="d-none" id="logout-btn">
 						<a href="/FrontEnd/index.html">logout</a>
 					</li>
-					<li><img src="./assets/icons/instagram.png" alt="Instagram"></li>
+					<li><img src="./FrontEnd/assets/icons/instagram.png" alt="Instagram"></li>
 				</ul>
 			</nav>
 		</header>
 		<main>
 			<section id="introduction">
 				<figure>
-					<img src="./assets/images/sophie-bluel.png" alt="">
+					<img src="./FrontEnd/assets/images/sophie-bluel.png" alt="">
 				</figure>
 				<article>
 					<h2>Designer d'espace</h2>
@@ -59,7 +59,7 @@
 			<section id="portfolio">
 				<div class="toolbar">
 					<aside id="edit-modal" class="d-none" aria-hidden="true">
-						<button id="close-btn" class="close-btn"><img src="./assets/icons/close_button.svg"
+						<button id="close-btn" class="close-btn"><img src="./FrontEnd/assets/icons/close_button.svg"
 								alt="fermer la modale"></button>
 						<div id="modal-step1">
 							<h3>Galerie Photo</h3>
@@ -68,14 +68,14 @@
 							<button class="addPhoto-btn">Ajouter une photo</button>
 						</div>
 						<div id="modal-step2" class="d-none">
-							<button class="retour-btn"><img src="./assets/icons/arrow-left-solid.svg"
+							<button class="retour-btn"><img src="./FrontEnd/assets/icons/arrow-left-solid.svg"
 									alt="bouton de retour à l'étape précedente"></button>
 							<h3>Ajout Photo</h3>
 							<form action="http://localhost:5678/api/works/" method="post" enctype="multipart/form-data"
 								name="uploadANewWork" id="uploadANewWork">
 								<label for="image">
 									<span class="upload-instructions">
-										<img src="./assets/icons/picture-svgrepo-com.svg"
+										<img src="./FrontEnd/assets/icons/picture-svgrepo-com.svg"
 											alt="upload d'un nouveau travail">
 										<span class="uploadPhoto-btn">+ Ajouter photo</span>
 										<span>jpg, png : 4mo max</span>
@@ -97,13 +97,13 @@
 								<button type="submit" class="validatePhoto-btn" disabled>Valider</button>
 							</form>
 							<p class="erreur-msg-modal" style="display: none;"><span><img
-										src="./assets/icons/triangle-exclamation-solid.svg"
+										src="./FrontEnd/assets/icons/triangle-exclamation-solid.svg"
 										alt="Icone pour le message d'erreur"></span>Veuillez remplir tous les champs avant d'envoyer le formulaire.</p>
 						</div>
 					</aside>
 					<h2>Mes projets</h2>
 					<button id="edition-btn" class="d-none">
-						<img src="./assets/icons/edit_button.svg" alt="button d'édition">modifier
+						<img src="./FrontEnd/assets/icons/edit_button.svg" alt="button d'édition">modifier
 					</button>
 				</div>
 				<div class="filters"></div>
@@ -134,9 +134,9 @@
 				</ul>
 			</nav>
 		</footer>
-		<script src="./js/portfolio.js"></script>
-		<script src="./js/logout.js"></script>
-		<script src="./js/editionMode.js"></script>
+		<script src="./FrontEnd/js/portfolio.js"></script>
+		<script src="./FrontEnd/js/logout.js"></script>
+		<script src="./FrontEnd/js/editionMode.js"></script>
 	</div>
 </body>
 
